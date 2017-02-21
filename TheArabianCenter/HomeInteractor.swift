@@ -13,31 +13,68 @@ import UIKit
 
 protocol HomeInteractorInput
 {
-  func doSomething(request: Home.Something.Request)
+    func shareOnFacebook(title:String,description:String, extra: [String:String]? )
+    func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? )
 }
 
 protocol HomeInteractorOutput
 {
-  func presentSomething(response: Home.Something.Response)
+    func presentShareSucceed(shareResponse:Home.Offer.Share.Response)
+    func presentShareError(error: Home.Offer.Share.Error)
 }
 
 class HomeInteractor: HomeInteractorInput
 {
-  var output: HomeInteractorOutput!
-  var worker: HomeWorker!
-  
-  // MARK: - Business logic
-  
-  func doSomething(request: Home.Something.Request)
-  {
-    // NOTE: Create some Worker to do the work
+
+    var output: HomeInteractorOutput!
+    var worker: HomeWorker!
     
-    worker = HomeWorker()
-    worker.doSomeWork()
+    // MARK: - Business logic
     
-    // NOTE: Pass the result to the Presenter
+    //  func doSomething(request: Home.Something.Request)
+    //  {
+    //    // NOTE: Create some Worker to do the work
+    //
+    //    worker = HomeWorker()
+    //    worker.doSomeWork()
+    //
+    //    // NOTE: Pass the result to the Presenter
+    //
+    //    let response = Home.Something.Response()
+    //    output.presentSomething(response: response)
+    //  }
     
-    let response = Home.Something.Response()
-    output.presentSomething(response: response)
-  }
+    
+    func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? ){
+        
+        worker = HomeWorker()
+        
+        worker.twitterShare(from: viewController, offerRequest: Home.Offer.Share.Request(title: title, description: description,extra:extra)) { (result) in
+            switch result{
+            case let .success(shareResponse):
+                self.output.presentShareSucceed(shareResponse: shareResponse)
+                break
+            case let .failure(error):
+                self.output.presentShareError(error: error)
+                break
+            }
+        }
+    }
+    
+    func shareOnFacebook(title:String,description:String, extra: [String:String]?){
+        // Create Home Worker to do the sharing work
+        
+        worker = HomeWorker()
+        
+        worker.facebookShare(offerRequest:  Home.Offer.Share.Request(title: title, description: description,extra : extra)) { (result) in
+            switch result{
+            case let .success(shareResponse):
+                self.output.presentShareSucceed(shareResponse: shareResponse)
+                break
+            case let .failure(error):
+                self.output.presentShareError(error: error)
+                break
+            }
+        }
+    }
 }

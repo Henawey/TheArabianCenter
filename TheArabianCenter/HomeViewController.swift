@@ -13,16 +13,32 @@ import UIKit
 import FacebookCore
 import FacebookShare
 import TwitterKit
+import Photos
+
+import FBSDKShareKit
 
 protocol HomeViewControllerInput
 {
-    func displaySomething(viewModel: Home.Something.ViewModel)
+    func displayShareSuccess(viewModel: Home.Offer.ViewModel)
+    func displayMessage(title: String, message:String,actionTitle:String) 
 }
 
 protocol HomeViewControllerOutput
 {
-    func doSomething(request: Home.Something.Request)
+    func shareOnFacebook(title:String,description:String, extra: [String:String]? )
+    func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? )
 }
+
+//only to support default value for parameter 'extra' as it not permited in protocal
+extension HomeViewControllerOutput{
+    func shareOnFacebook(title:String,description:String, extra: [String:String]? = nil){
+        shareOnFacebook(title: title, description: description, extra: extra)
+    }
+    func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? = nil){
+        shareOnTwitter(from: viewController, title: title, description: description, extra: extra)
+    }
+}
+
 
 class HomeViewController: UIViewController, HomeViewControllerInput
 {
@@ -42,64 +58,45 @@ class HomeViewController: UIViewController, HomeViewControllerInput
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomethingOnLoad()
-        
     }
     
     // MARK: - Event handling
     
     @IBAction func facebookShare(){
-        
-        let shareContent = LinkShareContent(url: URL(string: "https://fb.me/596147463923380?couponcode=1234")!, title: "PromoCode", description: "Show me", quote: nil, imageURL: nil)
-        
-        let shareDialog:ShareDialog = ShareDialog(content: shareContent)
-        shareDialog.mode = .automatic
-        
-        shareDialog.completion = { result in
-            switch result {
-            case let .success(contentResult):
-                break
-            case .cancelled:
-                break
-            case let .failed(error):
-                break
-            }
-        }
-        do{
-            try shareDialog.show()
-        }catch{
-            print(error)
-        }
+        self.output.shareOnFacebook(title: "Test Title", description: "Test Description",extra:["id":"1234"])
     }
     
     @IBAction func twitterShare(){
-        
-        let composer = TWTRComposer()
-        composer.setURL(URL(string:"https://firebasestorage.googleapis.com/v0/b/ios-test-b99cb.appspot.com/o/index.html?alt=media&token=8c73fe54-1e3e-40eb-8e99-8567e65f4f3b&couponcode=1234"))
-        composer.show(from: self) { (result) in
-            switch result{
-            case .done:
-                print("done")
-            case .cancelled:
-                print("canceled")
-            }
-        }
+        self.output.shareOnTwitter(from: self, title: "Test Title", description: "Test Description",extra:["id":"1234"])
     }
     
-    func doSomethingOnLoad()
-    {
-        // NOTE: Ask the Interactor to do some work
+    @IBAction func changeLanguage(){
+        let currentLanguage = UserDefaults.standard.stringArray(forKey: "AppleLanguages")?.first
         
-        let request = Home.Something.Request()
-        output.doSomething(request: request)
+        if currentLanguage == "en"{
+            UserDefaults.standard.set(["ar"], forKey: "AppleLanguages")
+        }else{
+            UserDefaults.standard.set(["en"], forKey: "AppleLanguages")
+        }
+        UserDefaults.standard.synchronize()
+        
+        let alert = UIAlertController(title: "Change Language", message: "Please restart the application", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
+    
+    
     
     // MARK: - Display logic
     
-    func displaySomething(viewModel: Home.Something.ViewModel)
-    {
+    func displayShareSuccess(viewModel: Home.Offer.ViewModel) {
         // NOTE: Display the result from the Presenter
-        
-        // nameTextField.text = viewModel.name
+    }
+    
+    func displayMessage(title: String, message:String,actionTitle:String) {
+        // NOTE: Display the result from the Presenter
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: actionTitle, style: .destructive, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
 }

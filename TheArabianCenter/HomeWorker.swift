@@ -11,12 +11,94 @@
 
 import UIKit
 
+import FacebookShare
+import Social
+
+import TwitterKit
+
+import Result
+
 class HomeWorker
 {
-  // MARK: - Business Logic
-  
-  func doSomeWork()
-  {
-    // NOTE: Do the work
-  }
+    // MARK: - Business Logic
+    
+    open let facebookAppLink:String = "https://fb.me/596147463923380"
+    open let twitterAppCardConfigurationLink:String = "https://firebasestorage.googleapis.com/v0/b/ios-test-b99cb.appspot.com/o/index.html?alt=media&token=8c73fe54-1e3e-40eb-8e99-8567e65f4f3b"
+    
+    func doSomeWork()
+    {
+        // NOTE: Do the work
+    }
+    func twitterShare(from viewController:UIViewController,offerRequest:Home.Offer.Share.Request,
+                      compilation:@escaping (Result<Home.Offer.Share.Response,Home.Offer.Share.Error>)->()) {
+        
+        var urlAsString = twitterAppCardConfigurationLink
+        
+        if let urlQuery = offerRequest.extra?.urlQueryString(){
+            urlAsString.append("&\(urlQuery)")
+        }
+        
+        guard let url = URL(string: urlAsString) else {
+            compilation(.failure(Home.Offer.Share.Error.UnknownError))
+            return
+        }
+        
+        let composer = TWTRComposer()
+        composer.setURL(url)
+        //        composer.setImage(UIImage(named: "twitter"))
+        composer.show(from: viewController) { (result) in
+            switch result{
+            case .done:
+                let response = Home.Offer.Share.Response( title: offerRequest.title, description: offerRequest.description,extra: offerRequest.extra)
+                compilation(.success(response))
+            case .cancelled:
+                compilation(.failure(Home.Offer.Share.Error.ShareCancelled))
+            }
+        }
+    }
+    
+    func facebookShare(offerRequest:Home.Offer.Share.Request,
+                       compilation:@escaping (Result<Home.Offer.Share.Response,Home.Offer.Share.Error>)->()){
+        
+        var urlAsString = facebookAppLink
+        
+        if let urlQuery = offerRequest.extra?.urlQueryString(){
+            urlAsString.append("?\(urlQuery)")
+        }
+        
+        guard let url = URL(string: urlAsString) else {
+            compilation(.failure(Home.Offer.Share.Error.UnknownError))
+            return
+        }
+        
+        let shareContent = LinkShareContent(url: url, title: offerRequest.title, description: offerRequest.description, quote: nil, imageURL: nil)
+        
+        let shareDialog:ShareDialog = ShareDialog(content: shareContent)
+        
+        //workaround because (canShow:) is not supported yet in FB Swift SDK also there is a bug in ".feed" type and for this I can't use ".automatic" Option
+        if UIApplication.shared.canOpenURL(URL(string: "fbauth2://")!){
+            shareDialog.mode = .native
+        }else if SLComposeViewController.isAvailable(forServiceType: "com.apple.share.Facebook.post") {
+            shareDialog.mode = .shareSheet
+        } else{
+            shareDialog.mode = .web
+        }
+        
+        shareDialog.completion = { result in
+            switch result {
+            case .success(_):
+                let response = Home.Offer.Share.Response(title: offerRequest.title, description: offerRequest.description,extra: offerRequest.extra)
+                compilation(.success(response))
+            case .cancelled:
+                compilation(.failure(Home.Offer.Share.Error.ShareCancelled))
+            case let .failed(error):
+                compilation(.failure(Home.Offer.Share.Error.failure(error: error)))
+            }
+        }
+        do{
+            try shareDialog.show()
+        }catch{
+            compilation(.failure(Home.Offer.Share.Error.failure(error: error)))
+        }
+    }
 }

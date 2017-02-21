@@ -11,6 +11,8 @@ target 'TheArabianCenter' do
     
     pod 'TwitterKit'
     
+    pod 'Result', '~> 3.0.0'
+    
     pod 'SwiftQRCode',:git => 'https://github.com/Henawey/SwiftQRCode.git'
 #    pod 'Moya', '8.0.0'
     

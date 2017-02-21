@@ -13,16 +13,45 @@ import UIKit
 
 struct Home
 {
-  struct Something
-  {
-    struct Request
+    struct Offer
     {
+        struct Share {
+            
+            struct Request
+            {
+                var title:String
+                var description:String
+                var extra:[String:String]?
+            }
+            struct Response
+            {
+                var title:String
+                var description:String
+                var extra:[String:String]?
+            }
+            
+            enum Error:Swift.Error {
+                case UnknownError
+                case ShareCancelled
+                case failure(error:Swift.Error)
+            }
+        }
+        struct Request
+        {
+        }
+        struct Response
+        {
+            var id:String?
+        }
+        struct ViewModel
+        {
+            var id:String
+            var title:String
+            var description:String
+        }
     }
-    struct Response
-    {
+    enum Error:Swift.Error {
+        case failure(error:Swift.Error)
     }
-    struct ViewModel
-    {
-    }
-  }
+    
 }

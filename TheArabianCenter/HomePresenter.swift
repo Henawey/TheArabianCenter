@@ -13,25 +13,31 @@ import UIKit
 
 protocol HomePresenterInput
 {
-  func presentSomething(response: Home.Something.Response)
+    func presentShareSucceed(shareResponse:Home.Offer.Share.Response)
+    func presentShareError(error: Home.Offer.Share.Error)
+    
 }
 
 protocol HomePresenterOutput: class
 {
-  func displaySomething(viewModel: Home.Something.ViewModel)
+    func displayShareSuccess(viewModel: Home.Offer.ViewModel)
+    func displayMessage(title: String, message:String,actionTitle:String)
 }
 
 class HomePresenter: HomePresenterInput
 {
-  weak var output: HomePresenterOutput!
-  
-  // MARK: - Presentation logic
-  
-  func presentSomething(response: Home.Something.Response)
-  {
-    // NOTE: Format the response from the Interactor and pass the result back to the View Controller
+    weak var output: HomePresenterOutput!
     
-    let viewModel = Home.Something.ViewModel()
-    output.displaySomething(viewModel: viewModel)
-  }
+    // MARK: - Presentation logic
+    
+    func presentShareSucceed(shareResponse :Home.Offer.Share.Response){
+        // Format the response from the Interactor and pass the result back to the View Controller
+        
+    }
+    func presentShareError(error: Home.Offer.Share.Error){
+        // Format the response from the Interactor and pass the result back to the View Controller
+        self.output.displayMessage(title: NSLocalizedString("Canceled", comment: ""), message: NSLocalizedString("Can't claim until share the offer on social media", comment: ""), actionTitle: NSLocalizedString("Ok", comment: ""))
+    }
+    
+    
 }

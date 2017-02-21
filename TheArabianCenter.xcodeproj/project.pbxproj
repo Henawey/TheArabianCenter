@@ -23,6 +23,8 @@
 		DC53E7101E58FF4F00702507 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC53E70E1E58FF4F00702507 /* LaunchScreen.storyboard */; };
 		DC53E71B1E58FF4F00702507 /* TheArabianCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC53E71A1E58FF4F00702507 /* TheArabianCenterTests.swift */; };
 		DC53E7261E58FF4F00702507 /* TheArabianCenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC53E7251E58FF4F00702507 /* TheArabianCenterUITests.swift */; };
+		DCF819EB1E5B77DB00D20C1A /* Dictionary+URLQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */; };
+		DCF819ED1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF819EC1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		DC53E7211E58FF4F00702507 /* TheArabianCenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheArabianCenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC53E7251E58FF4F00702507 /* TheArabianCenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheArabianCenterUITests.swift; sourceTree = "<group>"; };
 		DC53E7271E58FF4F00702507 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+URLQuery.swift"; sourceTree = "<group>"; };
+		DCF819EC1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+PercentEncodingForURLQuery.swift"; sourceTree = "<group>"; };
 		DEA7D00F278A2B1BEF312A68 /* Pods-TheArabianCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheArabianCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheArabianCenter/Pods-TheArabianCenter.debug.xcconfig"; sourceTree = "<group>"; };
 		F96CA48AC99A3F181478E20A /* Pods-TheArabianCenterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheArabianCenterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheArabianCenterTests/Pods-TheArabianCenterTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +194,7 @@
 		DC53E7041E58FF4F00702507 /* TheArabianCenter */ = {
 			isa = PBXGroup;
 			children = (
+				DCF819E91E5B77AE00D20C1A /* Extentions */,
 				DC435C081E5901C300E7F150 /* User Interfaces */,
 				DC435C071E5901BB00E7F150 /* Scene */,
 				DC435C091E5901D600E7F150 /* Supporting Files */,
@@ -213,6 +218,15 @@
 				DC53E7271E58FF4F00702507 /* Info.plist */,
 			);
 			path = TheArabianCenterUITests;
+			sourceTree = "<group>";
+		};
+		DCF819E91E5B77AE00D20C1A /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */,
+				DCF819EC1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift */,
+			);
+			name = Extentions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,7 +328,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = DC53E6F91E58FF4F00702507;
@@ -505,8 +518,10 @@
 				DC435C031E59006F00E7F150 /* HomeRouter.swift in Sources */,
 				DC435C041E59006F00E7F150 /* HomeViewController.swift in Sources */,
 				DC435C021E59006F00E7F150 /* HomePresenter.swift in Sources */,
+				DCF819ED1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift in Sources */,
 				DC53E7061E58FF4F00702507 /* AppDelegate.swift in Sources */,
 				DC435C001E59006F00E7F150 /* HomeInteractor.swift in Sources */,
+				DCF819EB1E5B77DB00D20C1A /* Dictionary+URLQuery.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +580,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -601,7 +617,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -614,6 +630,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -644,7 +661,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
