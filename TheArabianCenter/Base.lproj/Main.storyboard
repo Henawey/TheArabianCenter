@@ -42,13 +42,22 @@
                                     <action selector="changeLanguage" destination="BYZ-38-t0r" eventType="touchUpInside" id="gFD-ag-GkG"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTQ-jT-Tmp">
+                                <rect key="frame" x="150" y="318.5" width="74" height="30"/>
+                                <state key="normal" title="Scan Offer"/>
+                                <connections>
+                                    <segue destination="ma2-CG-Jz1" kind="show" id="ycn-yU-jGd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="8UX-Jd-QM8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="45V-pT-53f"/>
                             <constraint firstItem="OBx-BJ-jYP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="123" id="V7b-eE-3ed"/>
+                            <constraint firstItem="oTQ-jT-Tmp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aR4-rz-I6a"/>
                             <constraint firstItem="8UX-Jd-QM8" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="40" id="dsm-Ni-UNH"/>
                             <constraint firstAttribute="trailing" secondItem="OBx-BJ-jYP" secondAttribute="trailing" constant="8" id="gzf-IT-DYh"/>
+                            <constraint firstItem="oTQ-jT-Tmp" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="jXT-wV-Bd5"/>
                             <constraint firstItem="7vt-xK-C4v" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="123" id="jeC-2h-yvK"/>
                             <constraint firstItem="7vt-xK-C4v" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="wHu-4i-9ug"/>
                         </constraints>
@@ -57,6 +66,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="100" y="145"/>
+        </scene>
+        <!--Scanner View Controller-->
+        <scene sceneID="dFV-g8-zQk">
+            <objects>
+                <viewController id="ma2-CG-Jz1" customClass="QRScannerViewController" customModule="TGTG" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JfH-ZP-dbg"/>
+                        <viewControllerLayoutGuide type="bottom" id="LDo-EO-GNy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="trs-hp-Cop">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ahG-yv-qaG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1238" y="144"/>
         </scene>
     </scenes>
 </document>

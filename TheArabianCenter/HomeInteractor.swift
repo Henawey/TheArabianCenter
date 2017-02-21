@@ -15,6 +15,8 @@ protocol HomeInteractorInput
 {
     func shareOnFacebook(title:String,description:String, extra: [String:String]? )
     func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? )
+    
+    var qrValue: String {get set}
 }
 
 protocol HomeInteractorOutput
@@ -29,6 +31,15 @@ class HomeInteractor: HomeInteractorInput
     var output: HomeInteractorOutput!
     var worker: HomeWorker!
     
+    var _qrValue: String = ""
+    var qrValue: String {
+        get{
+            return _qrValue
+        }
+        set{
+            _qrValue = newValue
+        }
+    }
     // MARK: - Business logic
     
     //  func doSomething(request: Home.Something.Request)

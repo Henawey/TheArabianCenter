@@ -27,6 +27,8 @@ protocol HomeViewControllerOutput
 {
     func shareOnFacebook(title:String,description:String, extra: [String:String]? )
     func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? )
+    
+    var qrValue: String {get set}
 }
 
 //only to support default value for parameter 'extra' as it not permited in protocal
