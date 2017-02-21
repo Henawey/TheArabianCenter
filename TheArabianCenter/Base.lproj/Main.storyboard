@@ -70,7 +70,7 @@
         <!--Scanner View Controller-->
         <scene sceneID="dFV-g8-zQk">
             <objects>
-                <viewController id="ma2-CG-Jz1" customClass="QRScannerViewController" customModule="TGTG" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ma2-CG-Jz1" customClass="QRScannerViewController" customModule="TheArabianCenter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JfH-ZP-dbg"/>
                         <viewControllerLayoutGuide type="bottom" id="LDo-EO-GNy"/>
@@ -78,7 +78,20 @@
                     <view key="view" contentMode="scaleToFill" id="trs-hp-Cop">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chN-yA-qI4">
+                                <rect key="frame" x="16" y="20" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="close" destination="ma2-CG-Jz1" eventType="touchUpInside" id="AgF-hj-rBw"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="chN-yA-qI4" firstAttribute="top" secondItem="JfH-ZP-dbg" secondAttribute="bottom" id="Rjq-S1-yiK"/>
+                            <constraint firstItem="chN-yA-qI4" firstAttribute="leading" secondItem="trs-hp-Cop" secondAttribute="leadingMargin" id="wG7-U3-7Z2"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahG-yv-qaG" userLabel="First Responder" sceneMemberID="firstResponder"/>

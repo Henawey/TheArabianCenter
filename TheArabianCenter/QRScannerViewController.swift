@@ -66,6 +66,9 @@ class QRScannerViewController: UIViewController, QRScannerViewControllerInput
         output.prepareScanner(request: request)
     }
     
+    @IBAction func close(){
+        self.router.close()
+    }
     // MARK: - Display logic
     
     func displayMessage(message: String) {

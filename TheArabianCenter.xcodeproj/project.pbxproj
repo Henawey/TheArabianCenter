@@ -23,6 +23,7 @@
 		DC53E7101E58FF4F00702507 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC53E70E1E58FF4F00702507 /* LaunchScreen.storyboard */; };
 		DC53E71B1E58FF4F00702507 /* TheArabianCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC53E71A1E58FF4F00702507 /* TheArabianCenterTests.swift */; };
 		DC53E7261E58FF4F00702507 /* TheArabianCenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC53E7251E58FF4F00702507 /* TheArabianCenterUITests.swift */; };
+		DCA2DA731E5BC3A10030AAAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCA2DA721E5BC3A10030AAAC /* InfoPlist.strings */; };
 		DCDEAAD91E5BBEBC0003619A /* QRScannerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDEAAD21E5BBEBC0003619A /* QRScannerConfigurator.swift */; };
 		DCDEAADA1E5BBEBC0003619A /* QRScannerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDEAAD31E5BBEBC0003619A /* QRScannerInteractor.swift */; };
 		DCDEAADB1E5BBEBC0003619A /* QRScannerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDEAAD41E5BBEBC0003619A /* QRScannerModels.swift */; };
@@ -78,6 +79,7 @@
 		DC53E7211E58FF4F00702507 /* TheArabianCenterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheArabianCenterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC53E7251E58FF4F00702507 /* TheArabianCenterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheArabianCenterUITests.swift; sourceTree = "<group>"; };
 		DC53E7271E58FF4F00702507 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCA2DA721E5BC3A10030AAAC /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		DCDEAAD21E5BBEBC0003619A /* QRScannerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerConfigurator.swift; sourceTree = "<group>"; };
 		DCDEAAD31E5BBEBC0003619A /* QRScannerInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerInteractor.swift; sourceTree = "<group>"; };
 		DCDEAAD41E5BBEBC0003619A /* QRScannerModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerModels.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				DC53E7051E58FF4F00702507 /* AppDelegate.swift */,
 				DC53E70C1E58FF4F00702507 /* Assets.xcassets */,
 				DC53E7111E58FF4F00702507 /* Info.plist */,
+				DCA2DA721E5BC3A10030AAAC /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC53E7101E58FF4F00702507 /* LaunchScreen.storyboard in Resources */,
+				DCA2DA731E5BC3A10030AAAC /* InfoPlist.strings in Resources */,
 				DC53E70D1E58FF4F00702507 /* Assets.xcassets in Resources */,
 				DC53E70B1E58FF4F00702507 /* Main.storyboard in Resources */,
 			);
