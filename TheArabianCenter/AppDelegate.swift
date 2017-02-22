@@ -11,6 +11,7 @@ import Bolts
 import Fabric
 import TwitterKit
 import LocalizationKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        FIRApp.configure()
         Fabric.with([Twitter.self])
         
         if let appKey = Configuration.sharedInstance.localizationKitApiKey(){
