@@ -6,6 +6,9 @@ target 'TheArabianCenter' do
     use_frameworks!
     
     # Pods for TheArabianCenter
+    pod 'RxSwift'
+    pod 'RxCocoa'
+    
     pod 'FacebookCore'
     pod 'FacebookShare'
     
@@ -13,8 +16,7 @@ target 'TheArabianCenter' do
     
     pod 'Result', '~> 3.0.0'
     
-    pod 'SwiftQRCode',:git => 'https://github.com/Henawey/SwiftQRCode.git'
-#    pod 'Moya', '8.0.0'
+    pod 'LocalizationKit'
     
     target 'TheArabianCenterTests' do
         inherit! :search_paths

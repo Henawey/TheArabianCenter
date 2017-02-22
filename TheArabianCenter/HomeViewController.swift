@@ -10,25 +10,22 @@
 //
 
 import UIKit
-import FacebookCore
-import FacebookShare
-import TwitterKit
-import Photos
-
-import FBSDKShareKit
+import RxCocoa
+import RxSwift
 
 protocol HomeViewControllerInput
 {
     func displayShareSuccess(viewModel: Home.Offer.ViewModel)
-    func displayMessage(title: String, message:String,actionTitle:String) 
+    func displayCameraImage(viewModel:Home.Offer.Image.ViewModel)
+    func displayMessage(title: String, message:String,actionTitle:String)
 }
 
 protocol HomeViewControllerOutput
 {
+    func handleCameraResult(request:Home.Offer.Image.Request)
     func shareOnFacebook(title:String,description:String, extra: [String:String]? )
     func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? )
-    
-    var qrValue: String {get set}
+    func changeLanguage(request: Home.Language.Request)
 }
 
 //only to support default value for parameter 'extra' as it not permited in protocal
@@ -46,6 +43,7 @@ class HomeViewController: UIViewController, HomeViewControllerInput
 {
     var output: HomeViewControllerOutput!
     var router: HomeRouter!
+    var disposeBag = DisposeBag()
     
     // MARK: - Object lifecycle
     
@@ -72,19 +70,32 @@ class HomeViewController: UIViewController, HomeViewControllerInput
         self.output.shareOnTwitter(from: self, title: "Test Title", description: "Test Description",extra:["id":"1234"])
     }
     
+    @IBAction func openCamera(){
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        
+        
+        self.output.handleCameraResult(request: Home.Offer.Image.Request(observable :picker.rx.didFinishPickingMediaWithInfo))
+        
+        picker.rx.didFinishPickingMediaWithInfo.subscribe({ (event) in
+            picker.dismiss(animated: true, completion: nil)
+        }).addDisposableTo(disposeBag)
+        
+        self.present(picker, animated: true, completion: nil)
+    }
+    
     @IBAction func changeLanguage(){
-        let currentLanguage = UserDefaults.standard.stringArray(forKey: "AppleLanguages")?.first
+        let currentLanguage = UserDefaults.standard.stringArray(forKey: "CurrentLanguage")?.first
         
         if currentLanguage == "en"{
-            UserDefaults.standard.set(["ar"], forKey: "AppleLanguages")
+            let request = Home.Language.Request(language: Home.Language.Arabic)
+            self.output.changeLanguage(request: request)
+            UserDefaults.standard.set([Home.Language.Arabic.rawValue], forKey: "CurrentLanguage")
         }else{
-            UserDefaults.standard.set(["en"], forKey: "AppleLanguages")
+            self.output.changeLanguage(request: Home.Language.Request(language: Home.Language.English))
+            UserDefaults.standard.set([Home.Language.English.rawValue], forKey: "CurrentLanguage")
         }
         UserDefaults.standard.synchronize()
-        
-        let alert = UIAlertController(title: "Change Language", message: "Please restart the application", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
     
@@ -100,5 +111,9 @@ class HomeViewController: UIViewController, HomeViewControllerInput
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: actionTitle, style: .destructive, handler: nil))
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func displayCameraImage(viewModel: Home.Offer.Image.ViewModel) {
+        
     }
 }

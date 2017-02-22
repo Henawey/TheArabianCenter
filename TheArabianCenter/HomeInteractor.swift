@@ -10,13 +10,15 @@
 //
 
 import UIKit
+import RxSwift
+import LocalizationKit
 
 protocol HomeInteractorInput
 {
+    func changeLanguage(request: Home.Language.Request)
+    func handleCameraResult(request:Home.Offer.Image.Request)
     func shareOnFacebook(title:String,description:String, extra: [String:String]? )
     func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? )
-    
-    var qrValue: String {get set}
 }
 
 protocol HomeInteractorOutput
@@ -31,15 +33,8 @@ class HomeInteractor: HomeInteractorInput
     var output: HomeInteractorOutput!
     var worker: HomeWorker!
     
-    var _qrValue: String = ""
-    var qrValue: String {
-        get{
-            return _qrValue
-        }
-        set{
-            _qrValue = newValue
-        }
-    }
+    let disposeBag = DisposeBag()
+    
     // MARK: - Business logic
     
     //  func doSomething(request: Home.Something.Request)
@@ -55,6 +50,29 @@ class HomeInteractor: HomeInteractorInput
     //    output.presentSomething(response: response)
     //  }
     
+    func handleCameraResult(request: Home.Offer.Image.Request) {
+        let observable = request.observable
+        observable.subscribe(onNext: { (result) in
+            let response = Home.Offer.Image.Response(result: result)
+            
+        }, onError: { (error) in
+            
+        }).addDisposableTo(disposeBag);
+    }
+    
+    func changeLanguage(request: Home.Language.Request) {
+        
+        let selectedLanguage = request.language
+        
+//        Bundle.setLanguage(selectedLanguage.rawValue)
+        
+        Localization.setLanguage(selectedLanguage.rawValue)
+        
+        UIView.appearance().semanticContentAttribute = selectedLanguage.semanticContentAttribute
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "localizationChanged"), object: nil)
+        
+    }
     
     func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? ){
         

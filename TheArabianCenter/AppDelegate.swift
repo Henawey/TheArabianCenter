@@ -10,6 +10,7 @@ import UIKit
 import Bolts
 import Fabric
 import TwitterKit
+import LocalizationKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         Fabric.with([Twitter.self])
+        Localization.start(appKey: "a00f1ad7-7f10-4dc8-a477-9459dd8c1824")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.localizationChanged), name: NSNotification.Name(rawValue: "localizationChanged"), object: nil)
+        
         return true
     }
 
@@ -60,6 +65,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
     }
     
-
+    func localizationChanged(notification:Notification) {
+        self.window?.rootViewController = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
+    }
 }
 

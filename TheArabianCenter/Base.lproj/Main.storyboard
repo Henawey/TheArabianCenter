@@ -24,6 +24,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vt-xK-C4v">
                                 <rect key="frame" x="24" y="143" width="67" height="30"/>
                                 <state key="normal" title="Facebook"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="LocalizeKey" value="Main.facebook.button"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="facebookShare" destination="BYZ-38-t0r" eventType="touchUpInside" id="ivu-bn-XJX"/>
                                 </connections>
@@ -31,6 +34,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBx-BJ-jYP">
                                 <rect key="frame" x="319" y="143" width="48" height="30"/>
                                 <state key="normal" title="Twitter"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="LocalizeKey" value="Main.twitter.button"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="twitterShare" destination="BYZ-38-t0r" eventType="touchUpInside" id="PFF-Iu-EBc"/>
                                 </connections>
@@ -38,6 +44,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UX-Jd-QM8">
                                 <rect key="frame" x="94" y="40" width="186" height="30"/>
                                 <state key="normal" title="Change language to Arabic"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="LocalizeKey" value="Main.ChangeLanguage"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="changeLanguage" destination="BYZ-38-t0r" eventType="touchUpInside" id="gFD-ag-GkG"/>
                                 </connections>
@@ -46,7 +55,7 @@
                                 <rect key="frame" x="150" y="318.5" width="74" height="30"/>
                                 <state key="normal" title="Scan Offer"/>
                                 <connections>
-                                    <segue destination="ma2-CG-Jz1" kind="show" id="ycn-yU-jGd"/>
+                                    <action selector="openCamera" destination="BYZ-38-t0r" eventType="touchUpInside" id="XAh-4Y-KY9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -66,37 +75,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="100" y="145"/>
-        </scene>
-        <!--Scanner View Controller-->
-        <scene sceneID="dFV-g8-zQk">
-            <objects>
-                <viewController id="ma2-CG-Jz1" customClass="QRScannerViewController" customModule="TheArabianCenter" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="JfH-ZP-dbg"/>
-                        <viewControllerLayoutGuide type="bottom" id="LDo-EO-GNy"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="trs-hp-Cop">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chN-yA-qI4">
-                                <rect key="frame" x="16" y="20" width="48" height="30"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="close" destination="ma2-CG-Jz1" eventType="touchUpInside" id="AgF-hj-rBw"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="chN-yA-qI4" firstAttribute="top" secondItem="JfH-ZP-dbg" secondAttribute="bottom" id="Rjq-S1-yiK"/>
-                            <constraint firstItem="chN-yA-qI4" firstAttribute="leading" secondItem="trs-hp-Cop" secondAttribute="leadingMargin" id="wG7-U3-7Z2"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ahG-yv-qaG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1238" y="144"/>
         </scene>
     </scenes>
 </document>

@@ -10,11 +10,23 @@
 //
 
 import UIKit
+import RxSwift
 
 struct Home
 {
     struct Offer
     {
+        struct Image {
+            struct Request {
+                var observable: Observable<[String : AnyObject]>
+            }
+            struct Response {
+                var result:[String:AnyObject]
+            }
+            struct ViewModel {
+                var image:UIImage
+            }
+        }
         struct Share {
             
             struct Request
@@ -49,6 +61,26 @@ struct Home
             var title:String
             var description:String
         }
+    }
+    enum Language : String{
+        
+        case Arabic = "ar"
+        case English = "en"
+        
+        var semanticContentAttribute:UISemanticContentAttribute{
+            get{
+                switch self {
+                case .Arabic:
+                    return .forceRightToLeft
+                case .English:
+                    return .forceLeftToRight
+                }
+            }
+        }
+        struct Request {
+            var language:Language
+        }
+        
     }
     enum Error:Swift.Error {
         case failure(error:Swift.Error)
