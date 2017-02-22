@@ -29,6 +29,8 @@
 		DCB3F7C51E5DF2020006210F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCB3F7C41E5DF2020006210F /* GoogleService-Info.plist */; };
 		DCB3F7C81E5DF3180006210F /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7C71E5DF3180006210F /* Configuration.swift */; };
 		DCB3F7CA1E5DF3B40006210F /* Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCB3F7C91E5DF3B40006210F /* Debug.plist */; };
+		DCB3F7CC1E5E11930006210F /* CLLocationManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7CB1E5E11930006210F /* CLLocationManager+Rx.swift */; };
+		DCB3F7CE1E5E11C30006210F /* RxCLLocationManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7CD1E5E11C30006210F /* RxCLLocationManagerDelegateProxy.swift */; };
 		DCF819EB1E5B77DB00D20C1A /* Dictionary+URLQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */; };
 		DCF819ED1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF819EC1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift */; };
 /* End PBXBuildFile section */
@@ -83,6 +85,8 @@
 		DCB3F7C41E5DF2020006210F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DCB3F7C71E5DF3180006210F /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		DCB3F7C91E5DF3B40006210F /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
+		DCB3F7CB1E5E11930006210F /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
+		DCB3F7CD1E5E11C30006210F /* RxCLLocationManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxCLLocationManagerDelegateProxy.swift; sourceTree = "<group>"; };
 		DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+URLQuery.swift"; sourceTree = "<group>"; };
 		DCF819EC1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+PercentEncodingForURLQuery.swift"; sourceTree = "<group>"; };
 		DEA7D00F278A2B1BEF312A68 /* Pods-TheArabianCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheArabianCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheArabianCenter/Pods-TheArabianCenter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -238,8 +242,8 @@
 		DC8B9FE21E5CF61000D91D5F /* Rx */ = {
 			isa = PBXGroup;
 			children = (
-				DC8B9FDA1E5CA02100D91D5F /* UIImagePickerController+Rx.swift */,
-				DC8B9FDC1E5CA04C00D91D5F /* RxImagePickerDelegateProxy.swift */,
+				DCB3F7D01E5E11F00006210F /* UIImagePickerController */,
+				DCB3F7CF1E5E11D80006210F /* CLLocationManager */,
 			);
 			name = Rx;
 			sourceTree = "<group>";
@@ -251,6 +255,24 @@
 				DCB3F7C91E5DF3B40006210F /* Debug.plist */,
 			);
 			name = Config;
+			sourceTree = "<group>";
+		};
+		DCB3F7CF1E5E11D80006210F /* CLLocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				DCB3F7CB1E5E11930006210F /* CLLocationManager+Rx.swift */,
+				DCB3F7CD1E5E11C30006210F /* RxCLLocationManagerDelegateProxy.swift */,
+			);
+			name = CLLocationManager;
+			sourceTree = "<group>";
+		};
+		DCB3F7D01E5E11F00006210F /* UIImagePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				DC8B9FDA1E5CA02100D91D5F /* UIImagePickerController+Rx.swift */,
+				DC8B9FDC1E5CA04C00D91D5F /* RxImagePickerDelegateProxy.swift */,
+			);
+			name = UIImagePickerController;
 			sourceTree = "<group>";
 		};
 		DCF819E91E5B77AE00D20C1A /* Extentions */ = {
@@ -559,9 +581,11 @@
 				DC435C021E59006F00E7F150 /* HomePresenter.swift in Sources */,
 				DCB3F7C81E5DF3180006210F /* Configuration.swift in Sources */,
 				DCF819ED1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift in Sources */,
+				DCB3F7CC1E5E11930006210F /* CLLocationManager+Rx.swift in Sources */,
 				DC53E7061E58FF4F00702507 /* AppDelegate.swift in Sources */,
 				DC435C001E59006F00E7F150 /* HomeInteractor.swift in Sources */,
 				DC8B9FDD1E5CA04C00D91D5F /* RxImagePickerDelegateProxy.swift in Sources */,
+				DCB3F7CE1E5E11C30006210F /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				DCF819EB1E5B77DB00D20C1A /* Dictionary+URLQuery.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
