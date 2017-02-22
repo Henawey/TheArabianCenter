@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>twitterAppCardConfigurationLink</key>
+	<string>https://firebasestorage.googleapis.com/v0/b/the-arabian-center-83802.appspot.com/o/index.html?alt=media&amp;token=95eb6c1f-e0be-472e-b222-ce1469312512</string>
+	<key>facebookAppLink</key>
+	<string>https://fb.me/596147463923380</string>
+	<key>localizationKitApiKey</key>
+	<string>a00f1ad7-7f10-4dc8-a477-9459dd8c1824</string>
+</dict>
+</plist>

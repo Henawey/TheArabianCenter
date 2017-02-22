@@ -45,6 +45,7 @@ struct Home
             enum Error:Swift.Error {
                 case UnknownError
                 case ShareCancelled
+                case ConfigurationMissing
                 case failure(error:Swift.Error)
             }
         }

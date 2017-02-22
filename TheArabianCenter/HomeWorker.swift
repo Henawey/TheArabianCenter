@@ -22,17 +22,13 @@ class HomeWorker
 {
     // MARK: - Business Logic
     
-    open let facebookAppLink:String = "https://fb.me/596147463923380"
-    open let twitterAppCardConfigurationLink:String = "https://firebasestorage.googleapis.com/v0/b/ios-test-b99cb.appspot.com/o/index.html?alt=media&token=8c73fe54-1e3e-40eb-8e99-8567e65f4f3b"
-    
-    func doSomeWork()
-    {
-        // NOTE: Do the work
-    }
     func twitterShare(from viewController:UIViewController,offerRequest:Home.Offer.Share.Request,
                       compilation:@escaping (Result<Home.Offer.Share.Response,Home.Offer.Share.Error>)->()) {
         
-        var urlAsString = twitterAppCardConfigurationLink
+        guard var urlAsString = Configuration.sharedInstance.twitterAppCardConfigurationLink() else{
+            compilation(.failure(Home.Offer.Share.Error.ConfigurationMissing))
+            return
+        }
         
         if let urlQuery = offerRequest.extra?.urlQueryString(){
             urlAsString.append("&\(urlQuery)")
@@ -60,7 +56,10 @@ class HomeWorker
     func facebookShare(offerRequest:Home.Offer.Share.Request,
                        compilation:@escaping (Result<Home.Offer.Share.Response,Home.Offer.Share.Error>)->()){
         
-        var urlAsString = facebookAppLink
+        guard var urlAsString = Configuration.sharedInstance.facebookApplink() else{
+            compilation(.failure(Home.Offer.Share.Error.ConfigurationMissing))
+            return
+        }
         
         if let urlQuery = offerRequest.extra?.urlQueryString(){
             urlAsString.append("?\(urlQuery)")
