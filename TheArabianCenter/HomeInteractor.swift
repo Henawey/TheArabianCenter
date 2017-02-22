@@ -23,6 +23,9 @@ protocol HomeInteractorInput
 
 protocol HomeInteractorOutput
 {
+    func presentImageProccessed(response: Home.Offer.Image.Response)
+    func presentImageError(error: Home.Offer.Image.Error)
+    
     func presentShareSucceed(shareResponse:Home.Offer.Share.Response)
     func presentShareError(error: Home.Offer.Share.Error)
 }
@@ -37,34 +40,19 @@ class HomeInteractor: HomeInteractorInput
     
     // MARK: - Business logic
     
-    //  func doSomething(request: Home.Something.Request)
-    //  {
-    //    // NOTE: Create some Worker to do the work
-    //
-    //    worker = HomeWorker()
-    //    worker.doSomeWork()
-    //
-    //    // NOTE: Pass the result to the Presenter
-    //
-    //    let response = Home.Something.Response()
-    //    output.presentSomething(response: response)
-    //  }
-    
     func handleCameraResult(request: Home.Offer.Image.Request) {
         let observable = request.observable
         observable.subscribe(onNext: { (result) in
             let response = Home.Offer.Image.Response(result: result)
-            
+            self.output.presentImageProccessed(response: response)
         }, onError: { (error) in
-            
+            self.output.presentImageError(error: Home.Offer.Image.Error.failure(error: error))
         }).addDisposableTo(disposeBag);
     }
     
     func changeLanguage(request: Home.Language.Request) {
         
         let selectedLanguage = request.language
-        
-//        Bundle.setLanguage(selectedLanguage.rawValue)
         
         Localization.setLanguage(selectedLanguage.rawValue)
         

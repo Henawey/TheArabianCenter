@@ -26,6 +26,11 @@ struct Home
             struct ViewModel {
                 var image:UIImage
             }
+            
+            enum Error:Swift.Error {
+                case noImageFound
+                case failure(error:Swift.Error)
+            }
         }
         struct Share {
             

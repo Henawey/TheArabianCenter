@@ -13,13 +13,17 @@ import UIKit
 
 protocol HomePresenterInput
 {
+    func presentImageProccessed(response: Home.Offer.Image.Response)
+    func presentImageError(error: Home.Offer.Image.Error)
+    
     func presentShareSucceed(shareResponse:Home.Offer.Share.Response)
     func presentShareError(error: Home.Offer.Share.Error)
-    
 }
 
 protocol HomePresenterOutput: class
 {
+    func displayCameraImage(viewModel:Home.Offer.Image.ViewModel)
+    
     func displayShareSuccess(viewModel: Home.Offer.ViewModel)
     func displayMessage(title: String, message:String,actionTitle:String)
 }
@@ -30,14 +34,36 @@ class HomePresenter: HomePresenterInput
     
     // MARK: - Presentation logic
     
+    func presentImageProccessed(response: Home.Offer.Image.Response) {
+        guard let image = response.result[UIImagePickerControllerOriginalImage] as? UIImage else{
+            self.presentImageError(error: Home.Offer.Image.Error.noImageFound)
+            return
+        }
+        
+        let viewModel = Home.Offer.Image.ViewModel(image: image)
+        
+        self.output.displayCameraImage(viewModel: viewModel)
+    }
+    
+    func presentImageError(error: Home.Offer.Image.Error) {
+        switch error {
+        case .noImageFound:
+            self.output.displayMessage(title: "Error", message: "No Image", actionTitle: "OK")
+        default:
+            break
+        }
+    }
+    
     func presentShareSucceed(shareResponse :Home.Offer.Share.Response){
         // Format the response from the Interactor and pass the result back to the View Controller
         
     }
     func presentShareError(error: Home.Offer.Share.Error){
         // Format the response from the Interactor and pass the result back to the View Controller
-        self.output.displayMessage(title: NSLocalizedString("Canceled", comment: ""), message: NSLocalizedString("Can't claim until share the offer on social media", comment: ""), actionTitle: NSLocalizedString("Ok", comment: ""))
+        
+        switch error {
+        default:
+            self.output.displayMessage(title: NSLocalizedString("Canceled", comment: ""), message: NSLocalizedString("Can't claim until share the offer on social media", comment: ""), actionTitle: NSLocalizedString("Ok", comment: ""))
+        }
     }
-    
-    
 }
