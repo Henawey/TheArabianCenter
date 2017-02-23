@@ -1,6 +1,8 @@
 # The Arabian Center
-Application use [CocoaPods](https://cocoapods.org/) as a dependency manager 
-Architutre used is [Clean Swift](http://clean-swift.com/) base on 
+- Application C
+1. <b>Dependency manager</b> is [CocoaPods](https://cocoapods.org/) 
+2. <b>Architutre</b> is [Clean Swift](http://clean-swift.com/) based on Uncle bob [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)
+
 # [SDWebImage](https://github.com/rs/SDWebImage) 
 Asynchronous image downloader with cache support as a UIImageView category
 # [RxCocoa](https://github.com/ReactiveX/RxSwift/tree/master/RxCocoa/iOS) 
