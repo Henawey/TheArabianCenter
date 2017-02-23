@@ -146,15 +146,6 @@ class ShareWorker
         
         let shareDialog:ShareDialog = ShareDialog(content: shareContent)
         
-        //workaround because (canShow:) is not supported yet in FB Swift SDK also there is a bug in ".feed" type and for this I can't use ".automatic" Option
-        if UIApplication.shared.canOpenURL(URL(string: "fbauth2://")!){
-            shareDialog.mode = .native
-        }else if SLComposeViewController.isAvailable(forServiceType: "com.apple.share.Facebook.post") {
-            shareDialog.mode = .shareSheet
-        } else{
-            shareDialog.mode = .web
-        }
-        
         shareDialog.completion = { result in
             switch result {
             case .success(_):
