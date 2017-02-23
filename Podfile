@@ -17,10 +17,15 @@ target 'TheArabianCenter' do
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
     pod 'Firebase/Storage'
+    pod 'Firebase/Database'
+    
+    pod 'ObjectMapper'
     
     pod 'Result', '~> 3.0.0'
     
     pod 'PermissionScope'
+    
+    pod 'URLNavigator', '~> 1.1'
     
     target 'TheArabianCenterTests' do
         inherit! :search_paths

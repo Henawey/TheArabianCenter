@@ -15,12 +15,17 @@ protocol SharePresenterInput
 {
     func presentShareSucceed(shareResponse:Share.Response)
     func presentShareError(error: Share.Error)
+    
+    func presentSyncSucceed(syncResponse:Sync.Response)
+    func presentSyncError(error: Sync.Error)
 }
 
 protocol SharePresenterOutput: class
 {
     func displayShareSuccess(viewModel: Share.ViewModel)
     func displayMessage(title: String, message:String,actionTitle:String)
+    
+    func displaySyncSucceed(syncResponse:Sync.ViewModel)
 }
 
 class SharePresenter: SharePresenterInput
@@ -29,6 +34,16 @@ class SharePresenter: SharePresenterInput
   
   // MARK: - Presentation logic
   
+    func presentSyncSucceed(syncResponse:Sync.Response){
+        self.output.displaySyncSucceed(syncResponse: Sync.ViewModel(id: syncResponse.id, title: syncResponse.title, description: syncResponse.description, imageLocation: syncResponse.imageLocation))
+    }
+    
+    func presentSyncError(error: Sync.Error){
+        switch error {
+        default:
+            self.output.displayMessage(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Error syncing Offer", comment: ""), actionTitle: NSLocalizedString("Ok", comment: ""))
+        }
+    }
     func presentShareSucceed(shareResponse :Share.Response){
         // Format the response from the Interactor and pass the result back to the View Controller
         

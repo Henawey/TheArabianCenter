@@ -10,5 +10,7 @@
 	<string>https://fb.me/596147463923380</string>
 	<key>localizationKitApiKey</key>
 	<string>a00f1ad7-7f10-4dc8-a477-9459dd8c1824</string>
+	<key>firebaseDatabaseOfferKey</key>
+	<string>offers</string>
 </dict>
 </plist>

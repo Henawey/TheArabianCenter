@@ -44,4 +44,8 @@ class Configuration {
     func localizationKitApiKey() -> String?{
         return config?.object(forKey:"localizationKitApiKey") as? String
     }
+    
+    func firebaseDatabaseOfferKey() -> String? {
+        return config?.object(forKey: "firebaseDatabaseOfferKey") as? String
+    }
 }

@@ -12,15 +12,19 @@ import CoreLocation
 struct Image {
     struct Upload {
         struct Request {
-            var name: String
             var data: Data
         }
         struct Response {
-            
+            var url: String
         }
         
         struct ViewModel {
             
+        }
+        
+        enum Error:Swift.Error {
+            case configurationMissing
+            case failDuringUpload
         }
     }
     

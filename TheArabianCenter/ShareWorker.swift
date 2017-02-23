@@ -15,15 +15,78 @@ import Social
 
 import FirebaseStorage
 import FirebaseAuth
+import FirebaseDatabase
 
 import TwitterKit
 
 import Result
 
+import ObjectMapper
+
 class ShareWorker
 {
-  // MARK: - Business Logic
-  
+    // MARK: - Business Logic
+    
+    func save(request:Sync.Save.Request,compilation:@escaping (Result<String,Sync.Error>)->()) {
+        FIRAuth.auth()?.signInAnonymously(completion: { (user, error) in
+            if error != nil{
+                compilation(.failure(Sync.Error.configurationMissing))
+                return
+            }
+            
+            guard let firebaseKey = Configuration.sharedInstance.firebaseDatabaseOfferKey() else {
+                compilation(.failure(Sync.Error.configurationMissing))
+                return
+            }
+            //submit item
+            let ref: FIRDatabaseReference = FIRDatabase.database().reference()
+            let child = ref.child(firebaseKey).childByAutoId()
+            child.setValue(request.toJSON(), withCompletionBlock: { (error, reference) in
+                guard let error = error else{
+                    compilation(.success(reference.key))
+                    return
+                }
+                compilation(.failure(Sync.Error.failure(error: error)))
+            })
+        })
+    }
+    
+    func retrieve(request: Sync.Retrieve.Request,compilation:@escaping (Result<Sync.Response,Sync.Error>)->()){
+        FIRAuth.auth()?.signInAnonymously(completion: { (user, error) in
+            if error != nil{
+                compilation(.failure(Sync.Error.configurationMissing))
+                return
+            }
+            guard let firebaseKey = Configuration.sharedInstance.firebaseDatabaseOfferKey() else {
+                compilation(.failure(Sync.Error.configurationMissing))
+                return
+            }
+            // retrieve item
+            let ref: FIRDatabaseReference = FIRDatabase.database().reference()
+            let child = ref.child(firebaseKey).child(request.id)
+            child.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                guard var value = snapshot.value as? [String : Any] else{
+                    compilation(.failure(Sync.Error.invalidData))
+                    return
+                }
+                
+                value["id"] = child.key
+                
+                guard let response = Mapper<Sync.Response>().map(JSON:value) else{
+                    compilation(.failure(Sync.Error.invalidData))
+                    return
+
+                }
+                
+                compilation(.success(response))
+                
+            }) { (error) in
+                compilation(.failure(Sync.Error.failure(error: error)))
+            }
+        })
+    }
+    
     func twitterShare(from viewController:UIViewController,request:Share.Request,
                       compilation:@escaping (Result<Share.Response,Share.Error>)->()) {
         
@@ -32,9 +95,12 @@ class ShareWorker
             return
         }
         
-        if let urlQuery = request.extra?.urlQueryString(){
-            urlAsString.append("&\(urlQuery)")
+        guard let image = request.image else{
+            compilation(.failure(Share.Error.invalidData))
+            return
         }
+        
+        urlAsString.append("&offerId=\(request.id)")
         
         guard let url = URL(string: urlAsString) else {
             compilation(.failure(Share.Error.unknownError))
@@ -43,11 +109,11 @@ class ShareWorker
         
         let composer = TWTRComposer()
         composer.setURL(url)
-        composer.setImage(request.image)
+        composer.setImage(image)
         composer.show(from: viewController) { (result) in
             switch result{
             case .done:
-                let response = Share.Response( title: request.title, description: request.description,extra: request.extra)
+                let response = Share.Response(id: request.id, title: request.title, description: request.description,image:image)
                 compilation(.success(response))
             case .cancelled:
                 compilation(.failure(Share.Error.shareCancelled))
@@ -63,76 +129,68 @@ class ShareWorker
             return
         }
         
-        if let urlQuery = request.extra?.urlQueryString(){
-            urlAsString.append("?\(urlQuery)")
+        guard let imageURL = request.imageURL else{
+            compilation(.failure(Share.Error.invalidData))
+            return
         }
+        
+        urlAsString.append("&offerId=\(request.id)")
         
         guard let url = URL(string: urlAsString) else {
             compilation(.failure(Share.Error.unknownError))
             return
         }
         
-        let facebookShareClouser :(Share.Request,URL) ->() = { request,imageURL in
-            let shareContent = LinkShareContent(url: url, title: request.title, description: request.description, quote: nil, imageURL: imageURL)
-            
-            let shareDialog:ShareDialog = ShareDialog(content: shareContent)
-            
-            //workaround because (canShow:) is not supported yet in FB Swift SDK also there is a bug in ".feed" type and for this I can't use ".automatic" Option
-            if UIApplication.shared.canOpenURL(URL(string: "fbauth2://")!){
-                shareDialog.mode = .native
-            }else if SLComposeViewController.isAvailable(forServiceType: "com.apple.share.Facebook.post") {
-                shareDialog.mode = .shareSheet
-            } else{
-                shareDialog.mode = .web
-            }
-            
-            shareDialog.completion = { result in
-                switch result {
-                case .success(_):
-                    let response = Share.Response(title: request.title, description: request.description,extra: request.extra)
-                    compilation(.success(response))
-                case .cancelled:
-                    compilation(.failure(Share.Error.shareCancelled))
-                case let .failed(error):
-                    compilation(.failure(Share.Error.failure(error: error)))
-                }
-            }
-            do{
-                try shareDialog.show()
-            }catch{
+        let shareContent = LinkShareContent(url: url, title: request.title, description: request.description, quote: nil, imageURL: imageURL)
+        
+        let shareDialog:ShareDialog = ShareDialog(content: shareContent)
+        
+        //workaround because (canShow:) is not supported yet in FB Swift SDK also there is a bug in ".feed" type and for this I can't use ".automatic" Option
+        if UIApplication.shared.canOpenURL(URL(string: "fbauth2://")!){
+            shareDialog.mode = .native
+        }else if SLComposeViewController.isAvailable(forServiceType: "com.apple.share.Facebook.post") {
+            shareDialog.mode = .shareSheet
+        } else{
+            shareDialog.mode = .web
+        }
+        
+        shareDialog.completion = { result in
+            switch result {
+            case .success(_):
+                let response = Share.Response(id:request.id,title: request.title, description: request.description,imageURL:imageURL)
+                compilation(.success(response))
+            case .cancelled:
+                compilation(.failure(Share.Error.shareCancelled))
+            case let .failed(error):
                 compilation(.failure(Share.Error.failure(error: error)))
             }
         }
-        
-        uploadImage(request: Image.Upload.Request(name: request.id, data: request.image.jpeg(.low)!)) { (result) in
-            switch result{
-            case let .success(url):
-                facebookShareClouser(request,url)
-            case let .failure(error):
-                compilation(.failure(Share.Error.failure(error: error)))
-            }
+        do{
+            try shareDialog.show()
+        }catch{
+            compilation(.failure(Share.Error.failure(error: error)))
         }
     }
     
-    func uploadImage(request:Image.Upload.Request ,progress:@escaping (_ percent:Double)->() = {_ in },compilation:@escaping (Result<URL,Home.Offer.Image.Error>)->()) {
+    func uploadImage(request:Image.Upload.Request ,progress:@escaping (_ percent:Double)->() = {_ in },compilation:@escaping (Result<Image.Upload.Response,Image.Upload.Error>)->()) {
         FIRAuth.auth()?.signInAnonymously(completion: { (user, error) in
             if error != nil{
-                compilation(.failure(Home.Offer.Image.Error.configurationMissing))
+                compilation(.failure(Image.Upload.Error.configurationMissing))
                 return
             }
             
             // Get a reference to the storage service using the default Firebase App
             let storage = FIRStorage.storage()
             
-            guard let firebaseStorageLink = Configuration.sharedInstance.firebaseStorage() else {
-                compilation(.failure(Home.Offer.Image.Error.configurationMissing))
+            guard let firebaseStorageLink = Configuration.sharedInstance.firebaseStorage(),let firebaseKey = Configuration.sharedInstance.firebaseDatabaseOfferKey() else {
+                compilation(.failure(Image.Upload.Error.configurationMissing))
                 return
             }
             // Create a root reference
             let storageRef = storage.reference(forURL: firebaseStorageLink)
             
             // Create a reference to the file you want to upload
-            let riversRef = storageRef.child(request.name)
+            let riversRef = storageRef.child(firebaseKey).child("\(Date().timeIntervalSince1970)")
             
             // Create file metadata including the content type
             let metadata = FIRStorageMetadata()
@@ -162,16 +220,16 @@ class ShareWorker
                 
                 // Metadata contains file metadata such as size, content-type, and download URL.
                 guard let downloadURL : URL = snapshot.metadata?.downloadURL() else{
-                    compilation(.failure(Home.Offer.Image.Error.failDuringUpload))
+                    compilation(.failure(Image.Upload.Error.failDuringUpload))
                     return
                 }
-                compilation(.success(downloadURL))
+                compilation(.success(Image.Upload.Response(url:downloadURL.absoluteString)))
                 
             }
             
             uploadTask.observe(.failure) { snapshot in
                 if (snapshot.error as? NSError) != nil {
-                    compilation(.failure(Home.Offer.Image.Error.failDuringUpload))
+                    compilation(.failure(Image.Upload.Error.failDuringUpload))
                 }
             }
         })

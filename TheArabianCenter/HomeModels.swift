@@ -29,7 +29,6 @@ struct Home
             
             enum Error:Swift.Error {
                 case noImageFound
-                case failDuringUpload
                 case configurationMissing
                 case failure(error:Swift.Error)
             }

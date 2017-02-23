@@ -19,9 +19,11 @@ protocol ShareViewControllerInput
 
 protocol ShareViewControllerOutput
 {
-    func shareOnFacebook(request: Share.Request)
-    func shareOnTwitter(from viewController: UIViewController,request: Share.Request)
-    var image: UIImage {get set}
+    func shareOnFacebook(request: Share.UI.Request)
+    func shareOnTwitter(from viewController: UIViewController,request: Share.UI.Request)
+    func save(request: Sync.Save.Request)
+    func retrieve(request: Sync.Retrieve.Request)
+    var image: UIImage? {get set}
 }
 
 class ShareViewController: UIViewController, ShareViewControllerInput
@@ -30,6 +32,8 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     var router: ShareRouter!
     
     @IBOutlet var imageView:UIImageView?
+    
+    var offer:Share.ViewModel!
     
     // MARK: - Object lifecycle
     
@@ -44,17 +48,26 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.imageView?.image = self.output.image
+        if self.output.image != nil {
+            self.imageView?.image = self.output.image
+            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image!))
+            
+            self.output.retrieve(request: Sync.Retrieve.Request(id: "-KdfEFuvNrmhypM9oOk3"))
+        }
     }
     
     // MARK: - Event handling
     
+    func displaySyncSucceed(syncResponse:Sync.ViewModel){
+        
+    }
+    
     @IBAction func facebookShare(){
-        self.output.shareOnFacebook(request: Share.Request(id:"\(Date().timeIntervalSince1970)",title: "Test Title", description: "Test Description",image: self.output.image))
+        self.output.shareOnFacebook(request: Share.UI.Request(id:"\(Date().timeIntervalSince1970)",title: "Test Title", description: "Test Description",image: self.output.image!))
     }
     
     @IBAction func twitterShare(){
-        self.output.shareOnTwitter(from: self, request: Share.Request(id:"\(Date().timeIntervalSince1970)",title: "Test Title", description: "Test Description",image: self.output.image))
+        self.output.shareOnTwitter(from: self, request: Share.UI.Request(id:"\(Date().timeIntervalSince1970)",title: "Test Title", description: "Test Description",image: self.output.image!))
     }
     
     // MARK: - Display logic

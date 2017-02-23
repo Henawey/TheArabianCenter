@@ -13,26 +13,32 @@ import UIKit
 
 protocol ShareInteractorInput
 {
-    func shareOnFacebook(request: Share.Request)
-    func shareOnTwitter(from viewController: UIViewController,request: Share.Request)
-    var image: UIImage {get set}
+    func shareOnFacebook(request: Share.UI.Request)
+    func shareOnTwitter(from viewController: UIViewController,request: Share.UI.Request)
+    
+    func save(request: Sync.Save.Request)
+    func retrieve(request: Sync.Retrieve.Request)
+    var image: UIImage? {get set}
 }
 
 protocol ShareInteractorOutput
 {
     func presentShareSucceed(shareResponse:Share.Response)
     func presentShareError(error: Share.Error)
+    
+    func presentSyncSucceed(syncResponse:Sync.Response)
+    func presentSyncError(error: Sync.Error)
 }
 
 class ShareInteractor: ShareInteractorInput
 {
     var output: ShareInteractorOutput!
-    var worker: ShareWorker!
+    var worker: ShareWorker = ShareWorker()
     
     // MARK: - Business logic
-    var _image: UIImage!
+    var _image: UIImage?
     
-    var image: UIImage{
+    var image: UIImage?{
         set{
             _image = newValue
         }
@@ -40,11 +46,59 @@ class ShareInteractor: ShareInteractorInput
             return _image
         }
     }
-    func shareOnTwitter(from viewController: UIViewController,request: Share.Request){
+    
+    func save(request: Sync.Save.Request) {
         
-        worker = ShareWorker()
+        guard let image = request.image,
+            let imageData = image.jpeg(.low) else {
+                self.output.presentSyncError(error: Sync.Error.invalidData)
+                return
+        }
         
-        worker.twitterShare(from: viewController, request:request) { (result) in
+        self.worker.uploadImage (request: Image.Upload.Request(data: imageData)) { (result) in
+            switch result{
+            case let .success(response):
+                
+                var request = request
+                
+                request.imageLocation = response.url
+                
+                self.worker.save(request: request, compilation: { (result) in
+                    switch(result){
+                    case let .success(id):
+                        self.output.presentSyncSucceed(syncResponse: Sync.Response(id: id, title: request.title, description: request.description, imageLocation: response.url))
+                    case let .failure(error):
+                        self.output.presentSyncError(error: Sync.Error.failure(error: error))
+                    }
+                    
+                })
+            case let .failure(error):
+                self.output.presentSyncError(error: Sync.Error.failure(error: error))
+            }
+        }
+    }
+    
+    func retrieve(request: Sync.Retrieve.Request){
+        self.worker.retrieve(request: request) { (result) in
+            switch result{
+            case let .success(response):
+                self.output.presentSyncSucceed(syncResponse:response)
+            case let .failure(error):
+                self.output.presentSyncError(error: Sync.Error.failure(error: error))
+            }
+        }
+    }
+    
+    func shareOnTwitter(from viewController: UIViewController,request: Share.UI.Request){
+        guard let id = request.id,
+            let title = request.title,
+            let description = request.description,
+            let image = request.image else {
+                self.output.presentShareError(error: Share.Error.invalidData)
+                return
+        }
+        
+       self.worker.twitterShare(from: viewController, request: Share.Request(id: id, title: title, description: description, image: image)) { (result) in
             switch result{
             case let .success(shareResponse):
                 self.output.presentShareSucceed(shareResponse: shareResponse)
@@ -56,12 +110,18 @@ class ShareInteractor: ShareInteractorInput
         }
     }
     
-    func shareOnFacebook(request: Share.Request){
+    func shareOnFacebook(request: Share.UI.Request){
         // Create Home Worker to do the sharing work
         
-        worker = ShareWorker()
+        guard let id = request.id,
+            let title = request.title,
+            let description = request.description,
+            let imageURL = request.imageURL else {
+                self.output.presentShareError(error: Share.Error.invalidData)
+                return
+        }
         
-        worker.facebookShare(request: request) { (result) in
+        self.worker.facebookShare(request: Share.Request(id: id, title: title, description: description,imageURL:imageURL)) { (result) in
             switch result{
             case let .success(shareResponse):
                 self.output.presentShareSucceed(shareResponse: shareResponse)

@@ -315,7 +315,6 @@
 		DCB3F7D51E5E19F70006210F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DCB3F7D11E5E163D0006210F /* ShareModels.swift */,
 				DCB3F7D31E5E17AF0006210F /* LanguageModels.swift */,
 				DCB3F7DA1E5E2D6C0006210F /* ImageModels.swift */,
 				DCB3F7DC1E5E2DA90006210F /* LocationModels.swift */,
@@ -328,6 +327,7 @@
 			children = (
 				DCB3F7DF1E5E628A0006210F /* ShareConfigurator.swift */,
 				DCB3F7E01E5E628A0006210F /* ShareInteractor.swift */,
+				DCB3F7D11E5E163D0006210F /* ShareModels.swift */,
 				DCB3F7E11E5E628A0006210F /* SharePresenter.swift */,
 				DCB3F7E21E5E628A0006210F /* ShareRouter.swift */,
 				DCB3F7E31E5E628A0006210F /* ShareViewController.swift */,

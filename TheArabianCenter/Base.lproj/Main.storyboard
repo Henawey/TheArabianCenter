@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sy6-pL-XAk">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UX-Jd-QM8">
-                                <rect key="frame" x="94" y="40" width="186" height="30"/>
+                                <rect key="frame" x="94" y="90" width="186" height="30"/>
                                 <state key="normal" title="Change language to Arabic"/>
                                 <connections>
                                     <action selector="changeLanguage" destination="BYZ-38-t0r" eventType="touchUpInside" id="gFD-ag-GkG"/>
@@ -40,22 +40,23 @@
                         <constraints>
                             <constraint firstItem="8UX-Jd-QM8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="45V-pT-53f"/>
                             <constraint firstItem="oTQ-jT-Tmp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aR4-rz-I6a"/>
-                            <constraint firstItem="8UX-Jd-QM8" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="40" id="dsm-Ni-UNH"/>
+                            <constraint firstItem="8UX-Jd-QM8" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="90" id="dsm-Ni-UNH"/>
                             <constraint firstItem="oTQ-jT-Tmp" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="jXT-wV-Bd5"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Xe6-fu-Hdr"/>
                     <connections>
                         <segue destination="sTr-C2-Lyq" kind="show" identifier="showSharer" id="s1m-2N-qSh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="100" y="145"/>
+            <point key="canvasLocation" x="1039.2" y="144.3778110944528"/>
         </scene>
         <!--Share View Controller-->
         <scene sceneID="LBl-NA-4wi">
             <objects>
-                <viewController id="sTr-C2-Lyq" customClass="ShareViewController" customModule="TheArabianCenter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sharer" id="sTr-C2-Lyq" customClass="ShareViewController" customModule="TheArabianCenter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Dxj-Sg-LeB"/>
                         <viewControllerLayoutGuide type="bottom" id="sNu-cI-lSj"/>
@@ -79,7 +80,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YkQ-Gm-3i4">
-                                <rect key="frame" x="16" y="28" width="343" height="518"/>
+                                <rect key="frame" x="16" y="72" width="343" height="474"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -101,7 +102,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IPE-ti-lb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="804" y="143.47826086956522"/>
+            <point key="canvasLocation" x="1743.2" y="143.47826086956522"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GZ8-kI-gdU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sy6-pL-XAk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="omZ-LH-b0g">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Wlc-za-9ws"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Mr-ss-cGO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="100" y="144.3778110944528"/>
         </scene>
     </scenes>
 </document>
