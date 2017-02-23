@@ -18,7 +18,7 @@ struct Home
     {
         struct Image {
             struct Request {
-                var observable: Observable<[String : AnyObject]>
+                var event: Event<[String : AnyObject]>
             }
             struct Response {
                 var result:[String:AnyObject]
@@ -29,67 +29,10 @@ struct Home
             
             enum Error:Swift.Error {
                 case noImageFound
+                case failDuringUpload
+                case configurationMissing
                 case failure(error:Swift.Error)
             }
         }
-        struct Share {
-            
-            struct Request
-            {
-                var title:String
-                var description:String
-                var extra:[String:String]?
-            }
-            struct Response
-            {
-                var title:String
-                var description:String
-                var extra:[String:String]?
-            }
-            
-            enum Error:Swift.Error {
-                case UnknownError
-                case ShareCancelled
-                case ConfigurationMissing
-                case failure(error:Swift.Error)
-            }
-        }
-        struct Request
-        {
-        }
-        struct Response
-        {
-            var id:String?
-        }
-        struct ViewModel
-        {
-            var id:String
-            var title:String
-            var description:String
-        }
     }
-    enum Language : String{
-        
-        case Arabic = "ar"
-        case English = "en"
-        
-        var semanticContentAttribute:UISemanticContentAttribute{
-            get{
-                switch self {
-                case .Arabic:
-                    return .forceRightToLeft
-                case .English:
-                    return .forceLeftToRight
-                }
-            }
-        }
-        struct Request {
-            var language:Language
-        }
-        
-    }
-    enum Error:Swift.Error {
-        case failure(error:Swift.Error)
-    }
-    
 }

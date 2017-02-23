@@ -6,6 +6,8 @@
 	<string>$(CONFIGURATION)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera needed to Share Offer</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location needed to calim the Offer</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

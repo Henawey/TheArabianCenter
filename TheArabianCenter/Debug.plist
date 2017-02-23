@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>firebaseStorage</key>
+	<string>gs://the-arabian-center-83802.appspot.com/Facebook Images/</string>
 	<key>twitterAppCardConfigurationLink</key>
-	<string>https://firebasestorage.googleapis.com/v0/b/the-arabian-center-83802.appspot.com/o/index.html?alt=media&amp;token=95eb6c1f-e0be-472e-b222-ce1469312512</string>
+	<string>https://firebasestorage.googleapis.com/v0/b/the-arabian-center-83802.appspot.com/o/index.html?alt=media&amp;token=2a94f92f-979a-4044-807c-928d9f25b296</string>
 	<key>facebookAppLink</key>
 	<string>https://fb.me/596147463923380</string>
 	<key>localizationKitApiKey</key>

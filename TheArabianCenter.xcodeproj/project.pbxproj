@@ -31,6 +31,18 @@
 		DCB3F7CA1E5DF3B40006210F /* Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCB3F7C91E5DF3B40006210F /* Debug.plist */; };
 		DCB3F7CC1E5E11930006210F /* CLLocationManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7CB1E5E11930006210F /* CLLocationManager+Rx.swift */; };
 		DCB3F7CE1E5E11C30006210F /* RxCLLocationManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7CD1E5E11C30006210F /* RxCLLocationManagerDelegateProxy.swift */; };
+		DCB3F7D21E5E163D0006210F /* ShareModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7D11E5E163D0006210F /* ShareModels.swift */; };
+		DCB3F7D41E5E17AF0006210F /* LanguageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7D31E5E17AF0006210F /* LanguageModels.swift */; };
+		DCB3F7D81E5E222E0006210F /* Data+ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7D61E5E222E0006210F /* Data+ContentType.swift */; };
+		DCB3F7D91E5E222E0006210F /* UIImage+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7D71E5E222E0006210F /* UIImage+Compression.swift */; };
+		DCB3F7DB1E5E2D6C0006210F /* ImageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7DA1E5E2D6C0006210F /* ImageModels.swift */; };
+		DCB3F7DD1E5E2DA90006210F /* LocationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7DC1E5E2DA90006210F /* LocationModels.swift */; };
+		DCB3F7E51E5E628A0006210F /* ShareConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7DF1E5E628A0006210F /* ShareConfigurator.swift */; };
+		DCB3F7E61E5E628A0006210F /* ShareInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7E01E5E628A0006210F /* ShareInteractor.swift */; };
+		DCB3F7E71E5E628A0006210F /* SharePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7E11E5E628A0006210F /* SharePresenter.swift */; };
+		DCB3F7E81E5E628A0006210F /* ShareRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7E21E5E628A0006210F /* ShareRouter.swift */; };
+		DCB3F7E91E5E628A0006210F /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7E31E5E628A0006210F /* ShareViewController.swift */; };
+		DCB3F7EA1E5E628A0006210F /* ShareWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7E41E5E628A0006210F /* ShareWorker.swift */; };
 		DCF819EB1E5B77DB00D20C1A /* Dictionary+URLQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */; };
 		DCF819ED1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF819EC1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift */; };
 /* End PBXBuildFile section */
@@ -87,6 +99,18 @@
 		DCB3F7C91E5DF3B40006210F /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
 		DCB3F7CB1E5E11930006210F /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
 		DCB3F7CD1E5E11C30006210F /* RxCLLocationManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxCLLocationManagerDelegateProxy.swift; sourceTree = "<group>"; };
+		DCB3F7D11E5E163D0006210F /* ShareModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareModels.swift; sourceTree = "<group>"; };
+		DCB3F7D31E5E17AF0006210F /* LanguageModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageModels.swift; sourceTree = "<group>"; };
+		DCB3F7D61E5E222E0006210F /* Data+ContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+ContentType.swift"; sourceTree = "<group>"; };
+		DCB3F7D71E5E222E0006210F /* UIImage+Compression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Compression.swift"; sourceTree = "<group>"; };
+		DCB3F7DA1E5E2D6C0006210F /* ImageModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageModels.swift; sourceTree = "<group>"; };
+		DCB3F7DC1E5E2DA90006210F /* LocationModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationModels.swift; sourceTree = "<group>"; };
+		DCB3F7DF1E5E628A0006210F /* ShareConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareConfigurator.swift; sourceTree = "<group>"; };
+		DCB3F7E01E5E628A0006210F /* ShareInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareInteractor.swift; sourceTree = "<group>"; };
+		DCB3F7E11E5E628A0006210F /* SharePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharePresenter.swift; sourceTree = "<group>"; };
+		DCB3F7E21E5E628A0006210F /* ShareRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareRouter.swift; sourceTree = "<group>"; };
+		DCB3F7E31E5E628A0006210F /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		DCB3F7E41E5E628A0006210F /* ShareWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareWorker.swift; sourceTree = "<group>"; };
 		DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+URLQuery.swift"; sourceTree = "<group>"; };
 		DCF819EC1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+PercentEncodingForURLQuery.swift"; sourceTree = "<group>"; };
 		DEA7D00F278A2B1BEF312A68 /* Pods-TheArabianCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheArabianCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheArabianCenter/Pods-TheArabianCenter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,7 +185,9 @@
 		DC435C071E5901BB00E7F150 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DCB3F7D51E5E19F70006210F /* Models */,
 				DC435C061E59007900E7F150 /* Home */,
+				DCB3F7DE1E5E626F0006210F /* Share */,
 			);
 			name = Scene;
 			sourceTree = "<group>";
@@ -275,9 +301,35 @@
 			name = UIImagePickerController;
 			sourceTree = "<group>";
 		};
+		DCB3F7D51E5E19F70006210F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DCB3F7D11E5E163D0006210F /* ShareModels.swift */,
+				DCB3F7D31E5E17AF0006210F /* LanguageModels.swift */,
+				DCB3F7DA1E5E2D6C0006210F /* ImageModels.swift */,
+				DCB3F7DC1E5E2DA90006210F /* LocationModels.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		DCB3F7DE1E5E626F0006210F /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				DCB3F7DF1E5E628A0006210F /* ShareConfigurator.swift */,
+				DCB3F7E01E5E628A0006210F /* ShareInteractor.swift */,
+				DCB3F7E11E5E628A0006210F /* SharePresenter.swift */,
+				DCB3F7E21E5E628A0006210F /* ShareRouter.swift */,
+				DCB3F7E31E5E628A0006210F /* ShareViewController.swift */,
+				DCB3F7E41E5E628A0006210F /* ShareWorker.swift */,
+			);
+			name = Share;
+			sourceTree = "<group>";
+		};
 		DCF819E91E5B77AE00D20C1A /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				DCB3F7D61E5E222E0006210F /* Data+ContentType.swift */,
+				DCB3F7D71E5E222E0006210F /* UIImage+Compression.swift */,
 				DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */,
 				DCF819EC1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift */,
 				DC8B9FE21E5CF61000D91D5F /* Rx */,
@@ -574,19 +626,31 @@
 			files = (
 				DC435BFF1E59006F00E7F150 /* HomeConfigurator.swift in Sources */,
 				DC435C051E59006F00E7F150 /* HomeWorker.swift in Sources */,
+				DCB3F7E81E5E628A0006210F /* ShareRouter.swift in Sources */,
+				DCB3F7E71E5E628A0006210F /* SharePresenter.swift in Sources */,
+				DCB3F7E91E5E628A0006210F /* ShareViewController.swift in Sources */,
 				DC435C011E59006F00E7F150 /* HomeModels.swift in Sources */,
 				DC435C031E59006F00E7F150 /* HomeRouter.swift in Sources */,
+				DCB3F7D21E5E163D0006210F /* ShareModels.swift in Sources */,
 				DC8B9FDB1E5CA02100D91D5F /* UIImagePickerController+Rx.swift in Sources */,
 				DC435C041E59006F00E7F150 /* HomeViewController.swift in Sources */,
+				DCB3F7D81E5E222E0006210F /* Data+ContentType.swift in Sources */,
 				DC435C021E59006F00E7F150 /* HomePresenter.swift in Sources */,
+				DCB3F7D41E5E17AF0006210F /* LanguageModels.swift in Sources */,
 				DCB3F7C81E5DF3180006210F /* Configuration.swift in Sources */,
 				DCF819ED1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift in Sources */,
 				DCB3F7CC1E5E11930006210F /* CLLocationManager+Rx.swift in Sources */,
+				DCB3F7E61E5E628A0006210F /* ShareInteractor.swift in Sources */,
 				DC53E7061E58FF4F00702507 /* AppDelegate.swift in Sources */,
 				DC435C001E59006F00E7F150 /* HomeInteractor.swift in Sources */,
 				DC8B9FDD1E5CA04C00D91D5F /* RxImagePickerDelegateProxy.swift in Sources */,
+				DCB3F7D91E5E222E0006210F /* UIImage+Compression.swift in Sources */,
 				DCB3F7CE1E5E11C30006210F /* RxCLLocationManagerDelegateProxy.swift in Sources */,
+				DCB3F7EA1E5E628A0006210F /* ShareWorker.swift in Sources */,
+				DCB3F7E51E5E628A0006210F /* ShareConfigurator.swift in Sources */,
+				DCB3F7DD1E5E2DA90006210F /* LocationModels.swift in Sources */,
 				DCF819EB1E5B77DB00D20C1A /* Dictionary+URLQuery.swift in Sources */,
+				DCB3F7DB1E5E2D6C0006210F /* ImageModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

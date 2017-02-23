@@ -29,6 +29,10 @@ class Configuration {
         self.config = config
     }
     
+    func firebaseStorage() -> String? {
+        return config?.object(forKey:"firebaseStorage") as? String
+    }
+    
     func facebookApplink() -> String? {
         return config?.object(forKey:"facebookAppLink") as? String
     }

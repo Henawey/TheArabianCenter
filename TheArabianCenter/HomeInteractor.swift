@@ -11,14 +11,17 @@
 
 import UIKit
 import RxSwift
+import CoreLocation
 import LocalizationKit
 
 protocol HomeInteractorInput
 {
-    func changeLanguage(request: Home.Language.Request)
+    func validateCameraAvaliabilty()
+    func startLocationManager()
+    func changeLanguage(request: Language.Request)
     func handleCameraResult(request:Home.Offer.Image.Request)
-    func shareOnFacebook(title:String,description:String, extra: [String:String]? )
-    func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? )
+    
+    var image: UIImage {get set}
 }
 
 protocol HomeInteractorOutput
@@ -26,31 +29,83 @@ protocol HomeInteractorOutput
     func presentImageProccessed(response: Home.Offer.Image.Response)
     func presentImageError(error: Home.Offer.Image.Error)
     
-    func presentShareSucceed(shareResponse:Home.Offer.Share.Response)
-    func presentShareError(error: Home.Offer.Share.Error)
+    func presentLocationError(error: Location.Error)
+    
+    func presentCameraAvaliable()
+    func presentCameraNotAvaliable()
 }
 
 class HomeInteractor: HomeInteractorInput
 {
-
+    
     var output: HomeInteractorOutput!
     var worker: HomeWorker!
     
-    let disposeBag = DisposeBag()
+    var _image: UIImage!
     
-    // MARK: - Business logic
-    
-    func handleCameraResult(request: Home.Offer.Image.Request) {
-        let observable = request.observable
-        observable.subscribe(onNext: { (result) in
-            let response = Home.Offer.Image.Response(result: result)
-            self.output.presentImageProccessed(response: response)
-        }, onError: { (error) in
-            self.output.presentImageError(error: Home.Offer.Image.Error.failure(error: error))
-        }).addDisposableTo(disposeBag);
+    var image: UIImage{
+        set{
+            _image = newValue
+        }
+        get{
+            return _image
+        }
     }
     
-    func changeLanguage(request: Home.Language.Request) {
+    fileprivate var userLocation: CLLocation?
+    
+    fileprivate let disposeBag = DisposeBag()
+    
+    // MARK: - Business logic
+    func validateCameraAvaliabilty(){
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            self.output.presentCameraAvaliable()
+        }else{
+            self.output.presentCameraNotAvaliable()
+        }
+    }
+    func startLocationManager() {
+        
+        let locationManager = CLLocationManager()
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        
+        locationManager.requestWhenInUseAuthorization()
+        
+        locationManager.rx.didChangeAuthorizationStatus.subscribe(onNext: { (status) in
+            switch status{
+            case .authorizedWhenInUse:
+                locationManager.startUpdatingLocation()
+            default:
+                self.output.presentLocationError(error: Location.Error.locationAuthorizaionRequired)
+            }
+        }, onError: { (error) in
+            
+        }).addDisposableTo(disposeBag)
+        
+        locationManager.rx.didUpdateLocations.subscribe({(event) in
+            
+            if let location: CLLocation = event.element?.first {
+                self.userLocation = location
+            }
+            
+        }).addDisposableTo(disposeBag)
+    }
+    
+    func handleCameraResult(request: Home.Offer.Image.Request) {
+        let event = request.event
+        
+        switch event {
+        case let .next(result):
+            let response = Home.Offer.Image.Response(result: result)
+            self.output.presentImageProccessed(response: response)
+        case let .error(error):
+            self.output.presentImageError(error: Home.Offer.Image.Error.failure(error: error))
+        default: break
+        }
+    }
+    
+    func changeLanguage(request: Language.Request) {
         
         let selectedLanguage = request.language
         
@@ -62,36 +117,4 @@ class HomeInteractor: HomeInteractorInput
         
     }
     
-    func shareOnTwitter(from viewController: UIViewController,title:String,description:String, extra: [String:String]? ){
-        
-        worker = HomeWorker()
-        
-        worker.twitterShare(from: viewController, offerRequest: Home.Offer.Share.Request(title: title, description: description,extra:extra)) { (result) in
-            switch result{
-            case let .success(shareResponse):
-                self.output.presentShareSucceed(shareResponse: shareResponse)
-                break
-            case let .failure(error):
-                self.output.presentShareError(error: error)
-                break
-            }
-        }
-    }
-    
-    func shareOnFacebook(title:String,description:String, extra: [String:String]?){
-        // Create Home Worker to do the sharing work
-        
-        worker = HomeWorker()
-        
-        worker.facebookShare(offerRequest:  Home.Offer.Share.Request(title: title, description: description,extra : extra)) { (result) in
-            switch result{
-            case let .success(shareResponse):
-                self.output.presentShareSucceed(shareResponse: shareResponse)
-                break
-            case let .failure(error):
-                self.output.presentShareError(error: error)
-                break
-            }
-        }
-    }
 }

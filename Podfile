@@ -15,11 +15,14 @@ target 'TheArabianCenter' do
     pod 'TwitterKit'
     
     pod 'Firebase/Core'
+    pod 'Firebase/Auth'
     pod 'Firebase/Storage'
     
     pod 'Result', '~> 3.0.0'
     
     pod 'LocalizationKit'
+    
+    pod 'PermissionScope'
     
     target 'TheArabianCenterTests' do
         inherit! :search_paths
