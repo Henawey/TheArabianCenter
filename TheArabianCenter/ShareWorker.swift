@@ -134,7 +134,7 @@ class ShareWorker
             return
         }
         
-        urlAsString.append("&offerId=\(request.id)")
+        urlAsString.append("?offerId=\(request.id)")
         
         guard let url = URL(string: urlAsString) else {
             compilation(.failure(Share.Error.unknownError))

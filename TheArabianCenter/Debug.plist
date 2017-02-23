@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>firebaseStorage</key>
-	<string>gs://the-arabian-center-83802.appspot.com/Facebook Images/</string>
+	<string>gs://the-arabian-center-83802.appspot.com/</string>
 	<key>twitterAppCardConfigurationLink</key>
-	<string>https://firebasestorage.googleapis.com/v0/b/the-arabian-center-83802.appspot.com/o/index.html?alt=media&amp;token=2a94f92f-979a-4044-807c-928d9f25b296</string>
+	<string>https://firebasestorage.googleapis.com/v0/b/the-arabian-center-83802.appspot.com/o/index.html?alt=media&amp;token=7916b18d-9457-4735-b3ff-ea8d490f5ced</string>
 	<key>facebookAppLink</key>
 	<string>https://fb.me/596147463923380</string>
 	<key>localizationKitApiKey</key>

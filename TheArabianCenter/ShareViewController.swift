@@ -34,6 +34,7 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     @IBOutlet var imageView:UIImageView?
     
     var offer:Share.ViewModel!
+    var shareClousre : (_ offer:Sync.ViewModel) -> () = { offer in }
     
     // MARK: - Object lifecycle
     
@@ -51,8 +52,6 @@ class ShareViewController: UIViewController, ShareViewControllerInput
         if self.output.image != nil {
             self.imageView?.image = self.output.image
             self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image!))
-            
-            self.output.retrieve(request: Sync.Retrieve.Request(id: "-KdfEFuvNrmhypM9oOk3"))
         }
     }
     
@@ -60,14 +59,29 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     
     func displaySyncSucceed(syncResponse:Sync.ViewModel){
         
+        shareClousre(syncResponse)
+        
     }
     
     @IBAction func facebookShare(){
-        self.output.shareOnFacebook(request: Share.UI.Request(id:"\(Date().timeIntervalSince1970)",title: "Test Title", description: "Test Description",image: self.output.image!))
+        self.output.retrieve(request: Sync.Retrieve.Request(id: "-KdfEFuvNrmhypM9oOk3"))
+        
+        shareClousre = { offer in
+            let imageURL = URL(string: offer.imageLocation)
+            
+            self.output.shareOnFacebook(request: Share.UI.Request(id:offer.id,title:offer.title,description:offer.description,imageURL:imageURL))
+        }
+        
+        
     }
     
     @IBAction func twitterShare(){
-        self.output.shareOnTwitter(from: self, request: Share.UI.Request(id:"\(Date().timeIntervalSince1970)",title: "Test Title", description: "Test Description",image: self.output.image!))
+        self.output.retrieve(request: Sync.Retrieve.Request(id: "-KdfEFuvNrmhypM9oOk3"))
+        
+        
+        shareClousre = {  offer in
+            self.output.shareOnTwitter(from: self, request: Share.UI.Request(id:offer.id,title:offer.title,description:offer.description,image: self.output.image))
+        }
     }
     
     // MARK: - Display logic
