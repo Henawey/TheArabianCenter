@@ -64,17 +64,17 @@ class HomeViewController: UIViewController, HomeViewControllerInput
     }
     
     @IBAction func changeLanguage(){
-        let currentLanguage = UserDefaults.standard.stringArray(forKey: "CurrentLanguage")?.first
         
+        let currentLanguage = UserDefaults.standard.stringArray(forKey: "AppleLanguages")?.first
+        
+        var request:Language.Request!
         if currentLanguage == "en"{
-            let request = Language.Request(language: Language.Arabic)
+            request = Language.Request(language: Language.Arabic)
             self.output.changeLanguage(request: request)
-            UserDefaults.standard.set([Language.Arabic.rawValue], forKey: "CurrentLanguage")
         }else{
-            self.output.changeLanguage(request: Language.Request(language: Language.English))
-            UserDefaults.standard.set([Language.English.rawValue], forKey: "CurrentLanguage")
+            request = Language.Request(language: Language.English)
         }
-        UserDefaults.standard.synchronize()
+        self.output.changeLanguage(request: request)
     }
     
     // MARK: - Display logic
