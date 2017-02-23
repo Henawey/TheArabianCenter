@@ -28,10 +28,26 @@ class TheArabianCenterUITests: XCTestCase {
         super.tearDown()
     }
     
-    func testPermissioncopeIsAppearingIfUserCancelThePermission() {
+    func testChangeLanguageFromEnglishToArabic() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
+        let app = XCUIApplication()
+        let button = app.buttons.element(matching: .button, identifier: "changeLang")
+        
+        let predicate = NSPredicate(format: "exists == 1")
+        
+        let queryArabic =  app.buttons["مسح العرض"]
+        expectation(for: predicate, evaluatedWith: queryArabic, handler: nil)
+        
+        let queryEnglish = app.buttons["Scan Offer"]
+        expectation(for: predicate, evaluatedWith: queryEnglish, handler: nil)
+        
+        button.tap()
+        button.tap()
+        
+        
+        waitForExpectations(timeout: 1, handler: nil)
     }
     
 }

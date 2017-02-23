@@ -23,6 +23,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UX-Jd-QM8">
                                 <rect key="frame" x="94" y="90" width="186" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="changeLang"/>
                                 <state key="normal" title="Change language to Arabic"/>
                                 <connections>
                                     <action selector="changeLanguage" destination="BYZ-38-t0r" eventType="touchUpInside" id="gFD-ag-GkG"/>
