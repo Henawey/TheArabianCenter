@@ -21,6 +21,9 @@ protocol HomeInteractorInput
     func handleCameraResult(request:Home.Offer.Image.Request)
     
     var image: UIImage {get set}
+    
+    var userLocation: CLLocation? {get set}
+    
 }
 
 protocol HomeInteractorOutput
@@ -51,7 +54,16 @@ class HomeInteractor: HomeInteractorInput
         }
     }
     
-    fileprivate var userLocation: CLLocation?
+    var _userLocation: CLLocation?
+    
+    var userLocation: CLLocation?{
+        set{
+            _userLocation = newValue
+        }
+        get{
+            return _userLocation
+        }
+    }
     
     fileprivate let disposeBag = DisposeBag()
     
@@ -84,9 +96,10 @@ class HomeInteractor: HomeInteractorInput
         
         locationManager.rx.didUpdateLocations.subscribe({(event) in
             
-            if let location: CLLocation = event.element?.first {
-                self.userLocation = location
+            guard let location: CLLocation = event.element?.first else{
+                return
             }
+            self.userLocation = location
             
         }).addDisposableTo(disposeBag)
     }

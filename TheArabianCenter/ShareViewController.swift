@@ -13,6 +13,7 @@ import UIKit
 import SDWebImage
 import RxSwift
 import RxCocoa
+import CoreLocation
 
 protocol ShareViewControllerInput
 {
@@ -30,6 +31,7 @@ protocol ShareViewControllerOutput
     func retrieve(request: Sync.Retrieve.Request)
     
     var image: UIImage? {get set}
+    var userLocation: CLLocation? {get set}
 }
 
 class ShareViewController: UIViewController, ShareViewControllerInput
@@ -41,7 +43,6 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     @IBOutlet var imageView:UIImageView?
     
     var offer:Variable<Sync.ViewModel?> = Variable(nil)
-    
     
     var shareClousre : (_ offer:Sync.ViewModel) -> () = { offer in }
     
@@ -59,7 +60,7 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     {
         super.viewDidLoad()
         if self.output.image != nil {
-            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image!))
+            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image!,location:self.output.userLocation))
         }
         
         offer.asObservable().subscribe(onNext: { (viewModel) in

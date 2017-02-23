@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import ObjectMapper
+import CoreLocation
 
 
 struct Sync {
@@ -19,13 +20,18 @@ struct Sync {
             var description:String
             var imageLocation:String?
             var image:UIImage?
+            var lat:Double?
+            var long:Double?
             
             init(title:String,
                  description:String,
-                  image:UIImage) {
+                  image:UIImage,
+                  location:CLLocation?) {
                 self.title = title
                 self.description = description
                 self.image = image
+                lat = location?.coordinate.latitude
+                long = location?.coordinate.longitude
             }
             
             init?(map: Map) {
@@ -44,6 +50,8 @@ struct Sync {
                 title <- map["title"]
                 description <- map["description"]
                 imageLocation <- map["imageLocation"]
+                lat <- map["location.lat"]
+                long <- map["location.long"]
             }
         }
     }

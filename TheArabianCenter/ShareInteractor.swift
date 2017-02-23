@@ -10,6 +10,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol ShareInteractorInput
 {
@@ -19,6 +20,7 @@ protocol ShareInteractorInput
     func save(request: Sync.Save.Request)
     func retrieve(request: Sync.Retrieve.Request)
     var image: UIImage? {get set}
+    var userLocation: CLLocation? {get set}
 }
 
 protocol ShareInteractorOutput
@@ -44,6 +46,17 @@ class ShareInteractor: ShareInteractorInput
         }
         get{
             return _image
+        }
+    }
+    
+    var _userLocation: CLLocation?
+    
+    var userLocation: CLLocation?{
+        set{
+            _userLocation = newValue
+        }
+        get{
+            return _userLocation
         }
     }
     

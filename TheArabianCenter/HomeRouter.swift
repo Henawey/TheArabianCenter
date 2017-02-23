@@ -44,7 +44,8 @@ class HomeRouter: HomeRouterInput
   {
     // Teach the router how to pass data to the next scene
     
-     let shareViewController = segue.destination as! ShareViewController
-     shareViewController.output.image = viewController.output.image
+    let shareViewController = segue.destination as! ShareViewController
+    shareViewController.output.image = viewController.output.image
+    shareViewController.output.userLocation = viewController.output.userLocation
   }
 }

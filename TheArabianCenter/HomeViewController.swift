@@ -13,6 +13,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import PermissionScope
+import CoreLocation
 
 protocol HomeViewControllerInput
 {
@@ -31,6 +32,8 @@ protocol HomeViewControllerOutput
     func changeLanguage(request: Language.Request)
     
     var image: UIImage {get set}
+    
+    var userLocation: CLLocation? {get set}
 }
 
 
