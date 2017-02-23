@@ -25,7 +25,6 @@
 		DC53E7261E58FF4F00702507 /* TheArabianCenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC53E7251E58FF4F00702507 /* TheArabianCenterUITests.swift */; };
 		DC8B9FDB1E5CA02100D91D5F /* UIImagePickerController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9FDA1E5CA02100D91D5F /* UIImagePickerController+Rx.swift */; };
 		DC8B9FDD1E5CA04C00D91D5F /* RxImagePickerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9FDC1E5CA04C00D91D5F /* RxImagePickerDelegateProxy.swift */; };
-		DCA2DA731E5BC3A10030AAAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCA2DA721E5BC3A10030AAAC /* InfoPlist.strings */; };
 		DCB3F7C51E5DF2020006210F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCB3F7C41E5DF2020006210F /* GoogleService-Info.plist */; };
 		DCB3F7C81E5DF3180006210F /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7C71E5DF3180006210F /* Configuration.swift */; };
 		DCB3F7CA1E5DF3B40006210F /* Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCB3F7C91E5DF3B40006210F /* Debug.plist */; };
@@ -43,6 +42,8 @@
 		DCB3F7E81E5E628A0006210F /* ShareRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7E21E5E628A0006210F /* ShareRouter.swift */; };
 		DCB3F7E91E5E628A0006210F /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7E31E5E628A0006210F /* ShareViewController.swift */; };
 		DCB3F7EA1E5E628A0006210F /* ShareWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7E41E5E628A0006210F /* ShareWorker.swift */; };
+		DCB3F7EF1E5E9F600006210F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCB3F7F11E5E9F600006210F /* InfoPlist.strings */; };
+		DCB3F7F71E5EA0240006210F /* NSBundle+Language.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7F61E5EA0240006210F /* NSBundle+Language.m */; };
 		DCF819EB1E5B77DB00D20C1A /* Dictionary+URLQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */; };
 		DCF819ED1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF819EC1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift */; };
 /* End PBXBuildFile section */
@@ -93,7 +94,6 @@
 		DC53E7271E58FF4F00702507 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC8B9FDA1E5CA02100D91D5F /* UIImagePickerController+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImagePickerController+Rx.swift"; sourceTree = "<group>"; };
 		DC8B9FDC1E5CA04C00D91D5F /* RxImagePickerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxImagePickerDelegateProxy.swift; sourceTree = "<group>"; };
-		DCA2DA721E5BC3A10030AAAC /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		DCB3F7C41E5DF2020006210F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DCB3F7C71E5DF3180006210F /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		DCB3F7C91E5DF3B40006210F /* Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Debug.plist; sourceTree = "<group>"; };
@@ -111,6 +111,16 @@
 		DCB3F7E21E5E628A0006210F /* ShareRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareRouter.swift; sourceTree = "<group>"; };
 		DCB3F7E31E5E628A0006210F /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		DCB3F7E41E5E628A0006210F /* ShareWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareWorker.swift; sourceTree = "<group>"; };
+		DCB3F7EB1E5E9EA80006210F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		DCB3F7EC1E5E9EA80006210F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		DCB3F7ED1E5E9EAF0006210F /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		DCB3F7EE1E5E9EAF0006210F /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		DCB3F7F01E5E9F600006210F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCB3F7F21E5E9F650006210F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCB3F7F31E5E9F660006210F /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCB3F7F41E5E9FF40006210F /* TheArabianCenter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TheArabianCenter-Bridging-Header.h"; sourceTree = "<group>"; };
+		DCB3F7F51E5EA0240006210F /* NSBundle+Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Language.h"; sourceTree = "<group>"; };
+		DCB3F7F61E5EA0240006210F /* NSBundle+Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Language.m"; sourceTree = "<group>"; };
 		DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+URLQuery.swift"; sourceTree = "<group>"; };
 		DCF819EC1E5B782C00D20C1A /* String+PercentEncodingForURLQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+PercentEncodingForURLQuery.swift"; sourceTree = "<group>"; };
 		DEA7D00F278A2B1BEF312A68 /* Pods-TheArabianCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheArabianCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheArabianCenter/Pods-TheArabianCenter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -205,11 +215,12 @@
 			isa = PBXGroup;
 			children = (
 				DCB3F7C61E5DF3090006210F /* Config */,
+				DCB3F7F41E5E9FF40006210F /* TheArabianCenter-Bridging-Header.h */,
 				DCB3F7C41E5DF2020006210F /* GoogleService-Info.plist */,
 				DC53E7051E58FF4F00702507 /* AppDelegate.swift */,
 				DC53E70C1E58FF4F00702507 /* Assets.xcassets */,
 				DC53E7111E58FF4F00702507 /* Info.plist */,
-				DCA2DA721E5BC3A10030AAAC /* InfoPlist.strings */,
+				DCB3F7F11E5E9F600006210F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -328,6 +339,8 @@
 		DCF819E91E5B77AE00D20C1A /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				DCB3F7F51E5EA0240006210F /* NSBundle+Language.h */,
+				DCB3F7F61E5EA0240006210F /* NSBundle+Language.m */,
 				DCB3F7D61E5E222E0006210F /* Data+ContentType.swift */,
 				DCB3F7D71E5E222E0006210F /* UIImage+Compression.swift */,
 				DCF819EA1E5B77DB00D20C1A /* Dictionary+URLQuery.swift */,
@@ -438,6 +451,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				en,
+				ar,
 			);
 			mainGroup = DC53E6F91E58FF4F00702507;
 			productRefGroup = DC53E7031E58FF4F00702507 /* Products */;
@@ -457,7 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC53E7101E58FF4F00702507 /* LaunchScreen.storyboard in Resources */,
-				DCA2DA731E5BC3A10030AAAC /* InfoPlist.strings in Resources */,
+				DCB3F7EF1E5E9F600006210F /* InfoPlist.strings in Resources */,
 				DCB3F7C51E5DF2020006210F /* GoogleService-Info.plist in Resources */,
 				DC53E70D1E58FF4F00702507 /* Assets.xcassets in Resources */,
 				DCB3F7CA1E5DF3B40006210F /* Debug.plist in Resources */,
@@ -628,6 +643,7 @@
 				DC435C051E59006F00E7F150 /* HomeWorker.swift in Sources */,
 				DCB3F7E81E5E628A0006210F /* ShareRouter.swift in Sources */,
 				DCB3F7E71E5E628A0006210F /* SharePresenter.swift in Sources */,
+				DCB3F7F71E5EA0240006210F /* NSBundle+Language.m in Sources */,
 				DCB3F7E91E5E628A0006210F /* ShareViewController.swift in Sources */,
 				DC435C011E59006F00E7F150 /* HomeModels.swift in Sources */,
 				DC435C031E59006F00E7F150 /* HomeRouter.swift in Sources */,
@@ -690,6 +706,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				DC53E70A1E58FF4F00702507 /* Base */,
+				DCB3F7EB1E5E9EA80006210F /* en */,
+				DCB3F7ED1E5E9EAF0006210F /* ar */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -698,8 +716,20 @@
 			isa = PBXVariantGroup;
 			children = (
 				DC53E70F1E58FF4F00702507 /* Base */,
+				DCB3F7EC1E5E9EA80006210F /* en */,
+				DCB3F7EE1E5E9EAF0006210F /* ar */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DCB3F7F11E5E9F600006210F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCB3F7F01E5E9F600006210F /* Base */,
+				DCB3F7F21E5E9F650006210F /* en */,
+				DCB3F7F31E5E9F660006210F /* ar */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -810,7 +840,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.doparvo.TheArabianCenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TheArabianCenter/TheArabianCenter-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -828,7 +858,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.doparvo.TheArabianCenter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TheArabianCenter/TheArabianCenter-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

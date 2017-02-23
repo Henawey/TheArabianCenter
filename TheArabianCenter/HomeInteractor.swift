@@ -12,7 +12,6 @@
 import UIKit
 import RxSwift
 import CoreLocation
-import LocalizationKit
 
 protocol HomeInteractorInput
 {
@@ -109,7 +108,10 @@ class HomeInteractor: HomeInteractorInput
         
         let selectedLanguage = request.language
         
-        Localization.setLanguage(selectedLanguage.rawValue)
+        Bundle.setLanguage(selectedLanguage.rawValue)
+        
+        UserDefaults.standard.set([selectedLanguage.rawValue], forKey: "AppleLanguages")
+        UserDefaults.standard.synchronize()
         
         UIView.appearance().semanticContentAttribute = selectedLanguage.semanticContentAttribute
         

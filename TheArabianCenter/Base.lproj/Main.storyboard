@@ -24,9 +24,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UX-Jd-QM8">
                                 <rect key="frame" x="94" y="40" width="186" height="30"/>
                                 <state key="normal" title="Change language to Arabic"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="LocalizeKey" value="Main.ChangeLanguage"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="changeLanguage" destination="BYZ-38-t0r" eventType="touchUpInside" id="gFD-ag-GkG"/>
                                 </connections>
@@ -70,9 +67,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBx-BJ-jYP">
                                 <rect key="frame" x="311" y="617" width="48" height="30"/>
                                 <state key="normal" title="Twitter"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="LocalizeKey" value="Main.twitter.button"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="twitterShare" destination="sTr-C2-Lyq" eventType="touchUpInside" id="LRy-Bi-tlJ"/>
                                 </connections>
@@ -80,9 +74,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vt-xK-C4v">
                                 <rect key="frame" x="16" y="617" width="67" height="30"/>
                                 <state key="normal" title="Facebook"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="LocalizeKey" value="Main.facebook.button"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="facebookShare" destination="sTr-C2-Lyq" eventType="touchUpInside" id="0Fc-PX-3PM"/>
                                 </connections>

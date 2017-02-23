@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  TheArabianCenter
+
+  Created by Ahmed Henawey on 2/21/17.
+  Copyright © 2017 Ahmed Henawey. All rights reserved.
+*/
+
+"NSCameraUsageDescription" = "الكاميرا لازمة لنشر العرض";
+"NSLocationWhenInUseUsageDescription" = "المكان لازم لاستحقاق العرض";

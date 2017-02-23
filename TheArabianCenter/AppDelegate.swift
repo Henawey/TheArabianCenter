@@ -10,7 +10,6 @@ import UIKit
 import Bolts
 import Fabric
 import TwitterKit
-import LocalizationKit
 import Firebase
 
 @UIApplicationMain
@@ -23,10 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         Fabric.with([Twitter.self])
-        
-        if let appKey = Configuration.sharedInstance.localizationKitApiKey(){
-            Localization.start(appKey: appKey)
-        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.localizationChanged), name: NSNotification.Name(rawValue: "localizationChanged"), object: nil)
         
@@ -56,7 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("")
+        
+        print("\(options)")
         
 //        let sourceApplication = options[.sourceApplication] as? String
 //        

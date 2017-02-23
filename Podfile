@@ -20,8 +20,6 @@ target 'TheArabianCenter' do
     
     pod 'Result', '~> 3.0.0'
     
-    pod 'LocalizationKit'
-    
     pod 'PermissionScope'
     
     target 'TheArabianCenterTests' do
