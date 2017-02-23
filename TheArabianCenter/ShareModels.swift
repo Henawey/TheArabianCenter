@@ -64,6 +64,7 @@ struct Sync {
         var title:String
         var description:String
         var imageLocation:String
+        var image:UIImage?
         
         init(id :String,
              title:String,

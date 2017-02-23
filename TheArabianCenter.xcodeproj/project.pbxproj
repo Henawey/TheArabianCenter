@@ -935,7 +935,7 @@
 				DC53E7291E58FF4F00702507 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		DC53E72A1E58FF4F00702507 /* Build configuration list for PBXNativeTarget "TheArabianCenter" */ = {
 			isa = XCConfigurationList;
@@ -944,7 +944,7 @@
 				DC53E72C1E58FF4F00702507 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		DC53E72D1E58FF4F00702507 /* Build configuration list for PBXNativeTarget "TheArabianCenterTests" */ = {
 			isa = XCConfigurationList;
@@ -953,7 +953,7 @@
 				DC53E72F1E58FF4F00702507 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		DC53E7301E58FF4F00702507 /* Build configuration list for PBXNativeTarget "TheArabianCenterUITests" */ = {
 			isa = XCConfigurationList;
@@ -962,7 +962,7 @@
 				DC53E7321E58FF4F00702507 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,10 +7,12 @@
 //
 
 import UIKit
+
 import Bolts
 import Fabric
 import TwitterKit
 import Firebase
+import URLNavigator
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +24,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         Fabric.with([Twitter.self])
+        
+        Navigator.map("thearabiancenterpromoCodeByFB://") { url, _ in
+            
+            guard let bfURL = BFURL(url: url.urlValue) ,
+                let appLinkData =  bfURL.appLinkData["target_url"] as? String,
+                let url = URL(string: appLinkData),
+                let query = url.query else{
+               return false
+            }
+            
+            let components = query.components(separatedBy: "=")
+            
+            if components.count < 2{
+                return false
+            }
+            
+            let offerId = components[1]
+
+            let initialViewController: UINavigationController =   UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
+            let sharerViewController :ShareViewController =   UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sharer") as! ShareViewController
+            
+            self.window?.rootViewController = initialViewController
+            
+            sharerViewController.loadOffer(offerId: offerId)
+            
+            initialViewController.pushViewController(sharerViewController, animated: true)
+            return true
+        }
+        
+        Navigator.map("thearabiancenterpromocodebytwitter://") { url, values in
+            
+            guard let url = url.urlValue,
+                let query = url.query else{
+                    return false
+            }
+            
+            let components = query.components(separatedBy: "=")
+            
+            if components.count < 2{
+                return false
+            }
+            
+            let offerId = components[1]
+
+            let initialViewController: UINavigationController =   UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
+            let sharerViewController :ShareViewController =   UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sharer") as! ShareViewController
+            
+            self.window?.rootViewController = initialViewController
+            
+            sharerViewController.loadOffer(offerId: offerId)
+            
+            initialViewController.pushViewController(sharerViewController, animated: true)
+            return true
+        }
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.localizationChanged), name: NSNotification.Name(rawValue: "localizationChanged"), object: nil)
         
@@ -52,35 +109,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-//        print("\(options)")
+        return Navigator.open(url)
         
-        //        let sourceApplication = options[.sourceApplication] as? String
-        //
-        //        if let bfURL = BFURL(inboundURL: url, sourceApplication: sourceApplication){
-        //            print(bfURL.appLinkData)
-        //            print(bfURL.appLinkExtras)
-        //            print(bfURL.appLinkReferer)
-        
-        if url.absoluteString.hasPrefix("thearabiancenterpromoCodeByTwitter"){
-            let initialViewController: UINavigationController =   UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
-            let sharerViewController :ShareViewController =   UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sharer") as! ShareViewController
-            
-            self.window?.rootViewController = initialViewController
-            
-            let splitParams = url.host!.components(separatedBy: "=")
-            
-            guard let index = splitParams.index(of: "offerId") else{
-                return false
-            }
-            
-//            sharerViewController.loadOffer(offerID: splitParams[index+1])
-            
-            initialViewController.pushViewController(sharerViewController, animated: true)
-            
-            return true
-        }
-        
-        return false
     }
     
     func localizationChanged(notification:Notification) {

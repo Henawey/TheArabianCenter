@@ -108,6 +108,7 @@ class ShareWorker
         }
         
         let composer = TWTRComposer()
+        composer.setText("\(request.title) - \(request.description)")
         composer.setURL(url)
         composer.setImage(image)
         composer.show(from: viewController) { (result) in

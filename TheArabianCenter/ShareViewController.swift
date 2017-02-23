@@ -10,19 +10,25 @@
 //
 
 import UIKit
+import SDWebImage
+import RxSwift
+import RxCocoa
 
 protocol ShareViewControllerInput
 {
     func displayShareSuccess(viewModel: Share.ViewModel)
     func displayMessage(title: String, message:String,actionTitle:String)
+    func displaySyncSucceed(syncResponse:Sync.ViewModel)
 }
 
 protocol ShareViewControllerOutput
 {
     func shareOnFacebook(request: Share.UI.Request)
     func shareOnTwitter(from viewController: UIViewController,request: Share.UI.Request)
+    
     func save(request: Sync.Save.Request)
     func retrieve(request: Sync.Retrieve.Request)
+    
     var image: UIImage? {get set}
 }
 
@@ -31,9 +37,12 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     var output: ShareViewControllerOutput!
     var router: ShareRouter!
     
+    let disposeBag = DisposeBag()
     @IBOutlet var imageView:UIImageView?
     
-    var offer:Share.ViewModel!
+    var offer:Variable<Sync.ViewModel?> = Variable(nil)
+    
+    
     var shareClousre : (_ offer:Sync.ViewModel) -> () = { offer in }
     
     // MARK: - Object lifecycle
@@ -50,21 +59,40 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     {
         super.viewDidLoad()
         if self.output.image != nil {
-            self.imageView?.image = self.output.image
             self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image!))
         }
+        
+        offer.asObservable().subscribe(onNext: { (viewModel) in
+            guard let imageLocation = viewModel?.imageLocation,
+                let url = URL(string:imageLocation) else{
+                    return
+            }
+            self.imageView?.sd_setImage(with: url, completed: { (image, error, cachType, url) in
+                guard let image = image else{
+                    return
+                }
+                
+                self.output.image = image
+            })
+            
+        }).addDisposableTo(disposeBag)
     }
     
     // MARK: - Event handling
     
     func displaySyncSucceed(syncResponse:Sync.ViewModel){
         
+        self.offer.value = syncResponse
+        
         shareClousre(syncResponse)
         
     }
     
+    func loadOffer(offerId: String){
+        self.output.retrieve(request: Sync.Retrieve.Request(id: offerId))
+    }
+    
     @IBAction func facebookShare(){
-        self.output.retrieve(request: Sync.Retrieve.Request(id: "-KdfEFuvNrmhypM9oOk3"))
         
         shareClousre = { offer in
             let imageURL = URL(string: offer.imageLocation)
@@ -72,15 +100,21 @@ class ShareViewController: UIViewController, ShareViewControllerInput
             self.output.shareOnFacebook(request: Share.UI.Request(id:offer.id,title:offer.title,description:offer.description,imageURL:imageURL))
         }
         
+        if(offer.value != nil){
+            shareClousre(offer.value!)
+        }
+        
         
     }
     
     @IBAction func twitterShare(){
-        self.output.retrieve(request: Sync.Retrieve.Request(id: "-KdfEFuvNrmhypM9oOk3"))
-        
-        
+
         shareClousre = {  offer in
             self.output.shareOnTwitter(from: self, request: Share.UI.Request(id:offer.id,title:offer.title,description:offer.description,image: self.output.image))
+        }
+        
+        if(offer.value != nil){
+            shareClousre(offer.value!)
         }
     }
     

@@ -6,26 +6,28 @@ target 'TheArabianCenter' do
     use_frameworks!
     
     # Pods for TheArabianCenter
-    pod 'RxSwift'
-    pod 'RxCocoa'
+    pod 'RxSwift', '~> 3.2.0'
+    pod 'RxCocoa', '~> 3.2.0'
     
-    pod 'FacebookCore'
-    pod 'FacebookShare'
+    pod 'FacebookCore', '~> 0.2.0'
+    pod 'FacebookShare', '~> 0.2.0'
     
-    pod 'TwitterKit'
+    pod 'TwitterKit', '~> 2.8.0'
     
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
     pod 'Firebase/Storage'
     pod 'Firebase/Database'
-    
-    pod 'ObjectMapper'
+
+    pod 'ObjectMapper', '~> 2.2'
     
     pod 'Result', '~> 3.0.0'
     
-    pod 'PermissionScope'
+    pod 'PermissionScope', '~> 1.1.1'
     
-    pod 'URLNavigator', '~> 1.1'
+    pod 'URLNavigator', '~> 1.1.1'
+    
+    pod 'SDWebImage', '~> 4.0.0'
     
     target 'TheArabianCenterTests' do
         inherit! :search_paths
