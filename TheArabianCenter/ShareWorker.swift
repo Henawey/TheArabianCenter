@@ -67,7 +67,7 @@ class ShareWorker
             child.observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 guard var value = snapshot.value as? [String : Any] else{
-                    compilation(.failure(Sync.Error.invalidData))
+                    compilation(.failure(Sync.Error.invalidResponse))
                     return
                 }
                 

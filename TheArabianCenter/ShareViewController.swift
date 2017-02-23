@@ -110,7 +110,7 @@ class ShareViewController: UIViewController, ShareViewControllerInput
         guard let offer = self.offer.value else {
             MBProgressHUD.showAdded(to: self.view, animated: true)
             
-            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image!,location:self.output.userLocation))
+            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image,location:self.output.userLocation))
             return
         }
         
@@ -125,7 +125,7 @@ class ShareViewController: UIViewController, ShareViewControllerInput
         guard let offer = self.offer.value else {
             MBProgressHUD.showAdded(to: self.view, animated: true)
             
-            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image!,location:self.output.userLocation))
+            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image,location:self.output.userLocation))
             return
         }
         

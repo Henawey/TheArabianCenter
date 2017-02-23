@@ -25,7 +25,7 @@ struct Sync {
             
             init(title:String,
                  description:String,
-                  image:UIImage,
+                  image:UIImage?,
                   location:CLLocation?) {
                 self.title = title
                 self.description = description
@@ -116,6 +116,7 @@ struct Sync {
         case unknownError
         case configurationMissing
         case invalidData
+        case invalidResponse
         case failure(error:Swift.Error)
     }
 }

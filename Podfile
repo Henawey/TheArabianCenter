@@ -1,11 +1,21 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
+def common_pods
+    
+    pod 'Firebase/Core'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Storage'
+    pod 'Firebase/Database'
+end
+
 target 'TheArabianCenter' do
     # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
     use_frameworks!
     
     # Pods for TheArabianCenter
+    common_pods
+    
     pod 'RxSwift', '~> 3.2.0'
     pod 'RxCocoa', '~> 3.2.0'
     
@@ -14,10 +24,6 @@ target 'TheArabianCenter' do
     
     pod 'TwitterKit', '~> 2.8.0'
     
-    pod 'Firebase/Core'
-    pod 'Firebase/Auth'
-    pod 'Firebase/Storage'
-    pod 'Firebase/Database'
     
     pod 'MBProgressHUD', '~> 1.0.0'
     
@@ -34,6 +40,10 @@ target 'TheArabianCenter' do
     target 'TheArabianCenterTests' do
         inherit! :search_paths
         # Pods for testing
+        pod 'Firebase/Core'
+        pod 'Firebase/Auth'
+        pod 'Firebase/Storage'
+        pod 'Firebase/Database'
     end
     
     target 'TheArabianCenterUITests' do

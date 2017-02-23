@@ -9,7 +9,7 @@
 import XCTest
 
 class TheArabianCenterUITests: XCTestCase {
-        
+    
     override func setUp() {
         super.setUp()
         
@@ -28,9 +28,10 @@ class TheArabianCenterUITests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testPermissioncopeIsAppearingIfUserCancelThePermission() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
     }
     
 }
