@@ -216,27 +216,6 @@ struct Share {
         var image:UIImage?
         var imageURL:URL?
         
-        init(id :String,
-             title:String,
-             description:String,
-             image:UIImage? = nil,
-             imageURL:URL) {
-            self.id = id
-            self.title = title
-            self.description = description
-            self.imageURL = imageURL
-        }
-        
-        init(id :String,
-             title:String,
-             description:String,
-             image:UIImage,
-             imageURL:URL? = nil) {
-            self.id = id
-            self.title = title
-            self.description = description
-            self.image = image
-        }
     }
     
     

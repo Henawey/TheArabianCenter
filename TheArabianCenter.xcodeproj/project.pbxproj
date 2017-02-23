@@ -10,6 +10,7 @@
 		19E86DE2E0DCD8FB567ED460 /* Pods_TheArabianCenterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FE05D4A60492ADD08763D5 /* Pods_TheArabianCenterUITests.framework */; };
 		3899D4261089C7D68A167DED /* Pods_TheArabianCenterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF4690D17DF6B6C3CCAC6D7 /* Pods_TheArabianCenterTests.framework */; };
 		D0DF310CC432EC9A0B04FC6B /* Pods_TheArabianCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD7FC5BB3301DAF5278F628 /* Pods_TheArabianCenter.framework */; };
+		DC15BAC71E5F6B0F00A67730 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC15BAC91E5F6B0F00A67730 /* Localizable.strings */; };
 		DC435BFF1E59006F00E7F150 /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC435BF81E59006F00E7F150 /* HomeConfigurator.swift */; };
 		DC435C001E59006F00E7F150 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC435BF91E59006F00E7F150 /* HomeInteractor.swift */; };
 		DC435C011E59006F00E7F150 /* HomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC435BFA1E59006F00E7F150 /* HomeModels.swift */; };
@@ -73,6 +74,9 @@
 		D0AC89E59F34CA470D1A6BE6 /* Pods-TheArabianCenterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheArabianCenterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheArabianCenterUITests/Pods-TheArabianCenterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D5FE05D4A60492ADD08763D5 /* Pods_TheArabianCenterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheArabianCenterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD7FC5BB3301DAF5278F628 /* Pods_TheArabianCenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheArabianCenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC15BAC81E5F6B0F00A67730 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DC15BACA1E5F6B1000A67730 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DC15BACB1E5F6B1200A67730 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC435BF81E59006F00E7F150 /* HomeConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeConfigurator.swift; sourceTree = "<group>"; };
 		DC435BF91E59006F00E7F150 /* HomeInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		DC435BFA1E59006F00E7F150 /* HomeModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeModels.swift; sourceTree = "<group>"; };
@@ -221,6 +225,7 @@
 				DC53E70C1E58FF4F00702507 /* Assets.xcassets */,
 				DC53E7111E58FF4F00702507 /* Info.plist */,
 				DCB3F7F11E5E9F600006210F /* InfoPlist.strings */,
+				DC15BAC91E5F6B0F00A67730 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -473,6 +478,7 @@
 			files = (
 				DC53E7101E58FF4F00702507 /* LaunchScreen.storyboard in Resources */,
 				DCB3F7EF1E5E9F600006210F /* InfoPlist.strings in Resources */,
+				DC15BAC71E5F6B0F00A67730 /* Localizable.strings in Resources */,
 				DCB3F7C51E5DF2020006210F /* GoogleService-Info.plist in Resources */,
 				DC53E70D1E58FF4F00702507 /* Assets.xcassets in Resources */,
 				DCB3F7CA1E5DF3B40006210F /* Debug.plist in Resources */,
@@ -702,6 +708,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		DC15BAC91E5F6B0F00A67730 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC15BAC81E5F6B0F00A67730 /* Base */,
+				DC15BACA1E5F6B1000A67730 /* en */,
+				DC15BACB1E5F6B1200A67730 /* ar */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		DC53E7091E58FF4F00702507 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

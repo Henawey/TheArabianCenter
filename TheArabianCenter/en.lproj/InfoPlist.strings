@@ -8,3 +8,4 @@
 
 "NSCameraUsageDescription" = "Camera needed to Share Offer";
 "NSLocationWhenInUseUsageDescription" = "Location needed to calim the Offer";
+"CFBundleDisplayName" = "The Arabian Center";

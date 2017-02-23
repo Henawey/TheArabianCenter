@@ -8,3 +8,4 @@
 
 "NSCameraUsageDescription" = "الكاميرا لازمة لنشر العرض";
 "NSLocationWhenInUseUsageDescription" = "المكان لازم لاستحقاق العرض";
+"CFBundleDisplayName" = "المركز العربي";

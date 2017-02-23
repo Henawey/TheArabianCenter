@@ -1,0 +1,12 @@
+/* 
+  Localization.strings
+  TheArabianCenter
+
+  Created by Ahmed Henawey on 2/23/17.
+  Copyright © 2017 Ahmed Henawey. All rights reserved.
+*/
+"OK" = "موافق";
+"Error" = "خطأ";
+"No Image" = "لا يوجد صورة";
+"Canceled" = "تم الغاء";
+"Can't claim until share the offer on social media" = "لا يمكنك اكتساب العرض,لابد من المشاركة على مواقع التواصل الاجتماعي";

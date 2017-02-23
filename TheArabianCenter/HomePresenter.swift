@@ -52,7 +52,7 @@ class HomePresenter: HomePresenterInput
     func presentImageError(error: Home.Offer.Image.Error) {
         switch error {
         case .noImageFound:
-            self.output.displayMessage(title: "Error", message: "No Image", actionTitle: "OK")
+            self.output.displayMessage(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("No Image", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
         default:
             break
         }
@@ -67,16 +67,16 @@ class HomePresenter: HomePresenterInput
         
         switch error {
         default:
-            self.output.displayMessage(title: NSLocalizedString("Canceled", comment: ""), message: NSLocalizedString("Can't claim until share the offer on social media", comment: ""), actionTitle: NSLocalizedString("Ok", comment: ""))
+            self.output.displayMessage(title: NSLocalizedString("Canceled", comment: ""), message: NSLocalizedString("Can't claim until share the offer on social media", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
         }
     }
     
     func presentLocationError(error: Location.Error){
         switch error {
         case .locationAuthorizaionRequired:
-            self.output.displayLocationPermissionHelper(message: "We need your permission to get your location")
+            self.output.displayLocationPermissionHelper(message: NSLocalizedString("We need your permission to get your location", comment: ""))
         case .locationRequired:
-            self.output.displayMessage(title: NSLocalizedString("Unable To locate you", comment: ""), message: NSLocalizedString("Please Try to go somewhere else so we can locate you", comment: ""), actionTitle: NSLocalizedString("Ok", comment: ""))
+            self.output.displayMessage(title: NSLocalizedString("Unable To locate you", comment: ""), message: NSLocalizedString("Please Try to go somewhere else so we can locate you", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
         }
         
     }
@@ -85,7 +85,7 @@ class HomePresenter: HomePresenterInput
         self.output.displayCameraAvaliable()
     }
     func presentCameraNotAvaliable(){
-        self.output.displayMessage(title: "Camera Not Avaliable", message: "You can claim offers without camert", actionTitle: "OK")
+        self.output.displayMessage(title: NSLocalizedString("Camera Not Avaliable", comment: ""), message: NSLocalizedString("You can claim offers without camera", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
     }
 }
 

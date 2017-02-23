@@ -18,7 +18,9 @@ target 'TheArabianCenter' do
     pod 'Firebase/Auth'
     pod 'Firebase/Storage'
     pod 'Firebase/Database'
-
+    
+    pod 'MBProgressHUD', '~> 1.0.0'
+    
     pod 'ObjectMapper', '~> 2.2'
     
     pod 'Result', '~> 3.0.0'

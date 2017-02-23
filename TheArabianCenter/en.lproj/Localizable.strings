@@ -1,0 +1,12 @@
+/* 
+  Localization.strings
+  TheArabianCenter
+
+  Created by Ahmed Henawey on 2/23/17.
+  Copyright © 2017 Ahmed Henawey. All rights reserved.
+*/
+"OK" = "OK";
+"Error" = "Error";
+"No Image" = "No Image Found";
+"Canceled" = "Canceled";
+"Can't claim until share the offer on social media" = "Can't claim until share the offer on social media";

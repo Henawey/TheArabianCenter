@@ -41,19 +41,19 @@ class SharePresenter: SharePresenterInput
     func presentSyncError(error: Sync.Error){
         switch error {
         default:
-            self.output.displayMessage(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Error syncing Offer", comment: ""), actionTitle: NSLocalizedString("Ok", comment: ""))
+            self.output.displayMessage(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Error syncing Offer", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
         }
     }
     func presentShareSucceed(shareResponse :Share.Response){
         // Format the response from the Interactor and pass the result back to the View Controller
-        
+        self.output.displayShareSuccess(viewModel: Share.ViewModel(id: shareResponse.id, title: shareResponse.title, description: shareResponse.description, image: shareResponse.image,imageURL:shareResponse.imageURL))
     }
     func presentShareError(error: Share.Error){
         // Format the response from the Interactor and pass the result back to the View Controller
         
         switch error {
         default:
-            self.output.displayMessage(title: NSLocalizedString("Canceled", comment: ""), message: NSLocalizedString("Can't claim until share the offer on social media", comment: ""), actionTitle: NSLocalizedString("Ok", comment: ""))
+            self.output.displayMessage(title: NSLocalizedString("Canceled", comment: ""), message: NSLocalizedString("Can't claim until share the offer on social media", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
         }
     }
 }

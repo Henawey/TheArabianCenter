@@ -14,6 +14,7 @@ import SDWebImage
 import RxSwift
 import RxCocoa
 import CoreLocation
+import MBProgressHUD
 
 protocol ShareViewControllerInput
 {
@@ -60,7 +61,9 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     {
         super.viewDidLoad()
         if self.output.image != nil {
-            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image!,location:self.output.userLocation))
+            
+            self.imageView?.image = self.output.image
+            
         }
         
         offer.asObservable().subscribe(onNext: { (viewModel) in
@@ -83,6 +86,8 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     
     func displaySyncSucceed(syncResponse:Sync.ViewModel){
         
+        MBProgressHUD.hide(for: self.view, animated: true)
+        
         self.offer.value = syncResponse
         
         shareClousre(syncResponse)
@@ -90,6 +95,7 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     }
     
     func loadOffer(offerId: String){
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         self.output.retrieve(request: Sync.Retrieve.Request(id: offerId))
     }
     
@@ -101,32 +107,42 @@ class ShareViewController: UIViewController, ShareViewControllerInput
             self.output.shareOnFacebook(request: Share.UI.Request(id:offer.id,title:offer.title,description:offer.description,imageURL:imageURL))
         }
         
-        if(offer.value != nil){
-            shareClousre(offer.value!)
+        guard let offer = self.offer.value else {
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            
+            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image!,location:self.output.userLocation))
+            return
         }
         
-        
+        shareClousre(offer)
     }
     
     @IBAction func twitterShare(){
-
         shareClousre = {  offer in
             self.output.shareOnTwitter(from: self, request: Share.UI.Request(id:offer.id,title:offer.title,description:offer.description,image: self.output.image))
         }
         
-        if(offer.value != nil){
-            shareClousre(offer.value!)
+        guard let offer = self.offer.value else {
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            
+            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image!,location:self.output.userLocation))
+            return
         }
+        
+        shareClousre(offer)
+        
+        
     }
     
     // MARK: - Display logic
     func displayShareSuccess(viewModel: Share.ViewModel) {
         // NOTE: Display the result from the Presenter
-        // Submit location
         print("claimed")
     }
     
     func displayMessage(title: String, message:String,actionTitle:String) {
+        
+        MBProgressHUD.hide(for: self.view, animated: true)
         // NOTE: Display the result from the Presenter
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: actionTitle, style: .destructive, handler: nil))

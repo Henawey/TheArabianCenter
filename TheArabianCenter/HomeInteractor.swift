@@ -81,8 +81,6 @@ class HomeInteractor: HomeInteractorInput
         
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
-        locationManager.requestWhenInUseAuthorization()
-        
         locationManager.rx.didChangeAuthorizationStatus.subscribe(onNext: { (status) in
             switch status{
             case .authorizedWhenInUse:
