@@ -27,10 +27,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>FacebookAppID</key>
-	<string>596115070593286</string>
-	<key>FacebookDisplayName</key>
-	<string>The Arabian Center</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>Configuration</key>
@@ -54,6 +50,12 @@
 			</dict>
 		</array>
 	</dict>
+	<key>FacebookAppID</key>
+	<string>596115070593286</string>
+	<key>FacebookDisplayName</key>
+	<string>The Arabian Center</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -78,7 +80,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
 </dict>
 </plist>

@@ -34,7 +34,7 @@ target 'TheArabianCenter' do
     
     pod 'URLNavigator', '~> 1.1.1'
     
-    pod 'SDWebImage', '~> 4.0.0'
+    pod 'Kingfisher', '~> 3.0'
     
     target 'TheArabianCenterTests' do
         inherit! :search_paths

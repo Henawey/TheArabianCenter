@@ -10,7 +10,7 @@
 //
 
 import UIKit
-import SDWebImage
+import Kingfisher
 import RxSwift
 import RxCocoa
 import CoreLocation
@@ -71,12 +71,13 @@ class ShareViewController: UIViewController, ShareViewControllerInput
                 let url = URL(string:imageLocation) else{
                     return
             }
-            self.imageView?.sd_setImage(with: url, completed: { (image, error, cachType, url) in
+            self.imageView?.kf.setImage(with: url,completionHandler: { (image, error, cachType, url) in
                 guard let image = image else{
                     return
                 }
                 
                 self.output.image = image
+
             })
             
         }).addDisposableTo(disposeBag)
