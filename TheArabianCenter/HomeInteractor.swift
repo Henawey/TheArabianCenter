@@ -88,17 +88,13 @@ class HomeInteractor: HomeInteractorInput
             default:
                 self.output.presentLocationError(error: Location.Error.locationAuthorizaionRequired)
             }
-        }, onError: { (error) in
-            
         }).addDisposableTo(disposeBag)
         
-        locationManager.rx.didUpdateLocations.subscribe({(event) in
-            
-            guard let location: CLLocation = event.element?.first else{
+        locationManager.rx.didUpdateLocations.subscribe(onNext: { (locations) in
+            guard let location: CLLocation = locations.first else{
                 return
             }
             self.userLocation = location
-            
         }).addDisposableTo(disposeBag)
     }
     
