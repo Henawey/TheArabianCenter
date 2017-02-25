@@ -28,8 +28,8 @@ class TheArabianCenterTests: XCTestCase {
     {
         let expectation: XCTestExpectation
         
-        var presentSyncCalled = false
-        var presentSyncErrorCalled = false
+        var presentRetrieveCalled = false
+        var presentRetrieveErrorCalled = false
         var syncError:Sync.Error = .unknownError
         
         init(tests: TheArabianCenterTests) {
@@ -43,14 +43,21 @@ class TheArabianCenterTests: XCTestCase {
             
         }
         
-        func presentSyncSucceed(syncResponse:Sync.Response){
-            presentSyncCalled = true
+        func presentRetrieveSucceed(syncResponse:Sync.Response){
+            presentRetrieveCalled = true
             expectation.fulfill()
         }
-        func presentSyncError(error: Sync.Error){
-            presentSyncErrorCalled = true
+        func presentRetrieveError(error: Sync.Error){
+            presentRetrieveErrorCalled = true
             syncError = error
             expectation.fulfill()
+        }
+        
+        func presentRetrieveImageSucceed(response:Image.Download.Response){
+            
+        }
+        func presentRetrieveImageError(error: UI.Image.Download.Error){
+            
         }
     }
     
@@ -63,11 +70,10 @@ class TheArabianCenterTests: XCTestCase {
         
         shareInteractor.output = shareInteractorOutputSpy
         
-        let request = Sync.Save.Request(title: "", description: "", image: nil, location: nil)
+        let request = UI.Sync.Retrieve.Request(id: nil)
         
         // When
-        shareInteractor.save(request: request)
-        
+        shareInteractor.retrieve(request: request)
         waitForExpectations(timeout: 10) { (error) in
             if error != nil {
                 NSLog("Error: \(error)");
@@ -76,10 +82,10 @@ class TheArabianCenterTests: XCTestCase {
         // Then
         
         XCTAssertEqual(shareInteractorOutputSpy.syncError, Sync.Error.invalidData)
-        XCTAssert(shareInteractorOutputSpy.presentSyncErrorCalled, "saving offer should ask presenter to present Error \(shareInteractorOutputSpy.syncError)")
+        XCTAssert(shareInteractorOutputSpy.presentRetrieveErrorCalled, "saving offer should ask presenter to present Error \(shareInteractorOutputSpy.syncError)")
     }
     
-    func testSavingOfferSuccessful()
+    func testRetrievingOfferSuccessful()
     {
         let shareInteractor = ShareInteractor()
         
@@ -88,10 +94,10 @@ class TheArabianCenterTests: XCTestCase {
         
         shareInteractor.output = shareInteractorOutputSpy
         
-        let request = Sync.Save.Request(title: "", description: "", image: UIImage(named: "twitter"), location: nil)
+        let request = UI.Sync.Retrieve.Request(id: "-KdgwehflI-lPIo6VD0q")
         
         // When
-        shareInteractor.save(request: request)
+        shareInteractor.retrieve(request: request)
         
         waitForExpectations(timeout: 10) { (error) in
             if error != nil {
@@ -99,7 +105,7 @@ class TheArabianCenterTests: XCTestCase {
             }
         }
         // Then
-        XCTAssert(shareInteractorOutputSpy.presentSyncCalled, "saving offer  should ask presenter to do it")
+        XCTAssert(shareInteractorOutputSpy.presentRetrieveCalled, "retrieving offer  should ask presenter to do it")
     }
     
     

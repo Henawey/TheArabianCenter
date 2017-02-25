@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+
+/// Language Models used to request language change
 enum Language : String{
     
     case Arabic = "ar"
@@ -25,7 +27,7 @@ enum Language : String{
         }
     }
     struct Request {
-        var language:Language
+        var language:Language?
     }
     
 }

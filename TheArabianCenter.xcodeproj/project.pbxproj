@@ -45,6 +45,8 @@
 		DCB3F7EA1E5E628A0006210F /* ShareWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7E41E5E628A0006210F /* ShareWorker.swift */; };
 		DCB3F7EF1E5E9F600006210F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCB3F7F11E5E9F600006210F /* InfoPlist.strings */; };
 		DCB3F7F71E5EA0240006210F /* NSBundle+Language.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB3F7F61E5EA0240006210F /* NSBundle+Language.m */; };
+		DCE32CC11E6217F300826DD2 /* SyncModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE32CC01E6217F300826DD2 /* SyncModels.swift */; };
+		DCE32CC31E62185D00826DD2 /* SyncWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE32CC21E62185D00826DD2 /* SyncWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +125,8 @@
 		DCB3F7F41E5E9FF40006210F /* TheArabianCenter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TheArabianCenter-Bridging-Header.h"; sourceTree = "<group>"; };
 		DCB3F7F51E5EA0240006210F /* NSBundle+Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Language.h"; sourceTree = "<group>"; };
 		DCB3F7F61E5EA0240006210F /* NSBundle+Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Language.m"; sourceTree = "<group>"; };
+		DCE32CC01E6217F300826DD2 /* SyncModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncModels.swift; sourceTree = "<group>"; };
+		DCE32CC21E62185D00826DD2 /* SyncWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncWorker.swift; sourceTree = "<group>"; };
 		DEA7D00F278A2B1BEF312A68 /* Pods-TheArabianCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheArabianCenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheArabianCenter/Pods-TheArabianCenter.debug.xcconfig"; sourceTree = "<group>"; };
 		F96CA48AC99A3F181478E20A /* Pods-TheArabianCenterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheArabianCenterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheArabianCenterTests/Pods-TheArabianCenterTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -195,6 +199,7 @@
 		DC435C071E5901BB00E7F150 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DCE32CBF1E6217C000826DD2 /* Sync */,
 				DCB3F7D51E5E19F70006210F /* Models */,
 				DC435C061E59007900E7F150 /* Home */,
 				DCB3F7DE1E5E626F0006210F /* Share */,
@@ -335,6 +340,15 @@
 				DCB3F7E41E5E628A0006210F /* ShareWorker.swift */,
 			);
 			name = Share;
+			sourceTree = "<group>";
+		};
+		DCE32CBF1E6217C000826DD2 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				DCE32CC01E6217F300826DD2 /* SyncModels.swift */,
+				DCE32CC21E62185D00826DD2 /* SyncWorker.swift */,
+			);
+			name = Sync;
 			sourceTree = "<group>";
 		};
 		DCF819E91E5B77AE00D20C1A /* Extentions */ = {
@@ -649,6 +663,7 @@
 				DC435C031E59006F00E7F150 /* HomeRouter.swift in Sources */,
 				DCB3F7D21E5E163D0006210F /* ShareModels.swift in Sources */,
 				DC8B9FDB1E5CA02100D91D5F /* UIImagePickerController+Rx.swift in Sources */,
+				DCE32CC31E62185D00826DD2 /* SyncWorker.swift in Sources */,
 				DC435C041E59006F00E7F150 /* HomeViewController.swift in Sources */,
 				DCB3F7D81E5E222E0006210F /* Data+ContentType.swift in Sources */,
 				DC435C021E59006F00E7F150 /* HomePresenter.swift in Sources */,
@@ -656,6 +671,7 @@
 				DCB3F7C81E5DF3180006210F /* Configuration.swift in Sources */,
 				DCB3F7CC1E5E11930006210F /* CLLocationManager+Rx.swift in Sources */,
 				DCB3F7E61E5E628A0006210F /* ShareInteractor.swift in Sources */,
+				DCE32CC11E6217F300826DD2 /* SyncModels.swift in Sources */,
 				DC53E7061E58FF4F00702507 /* AppDelegate.swift in Sources */,
 				DC435C001E59006F00E7F150 /* HomeInteractor.swift in Sources */,
 				DC8B9FDD1E5CA04C00D91D5F /* RxImagePickerDelegateProxy.swift in Sources */,

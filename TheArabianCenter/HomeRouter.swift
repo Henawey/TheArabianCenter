@@ -10,42 +10,47 @@
 //
 
 import UIKit
+import RxSwift
 
 protocol HomeRouterInput
 {
-  func navigateToSharer()
+    func navigateToSharer()
 }
 
 class HomeRouter: HomeRouterInput
 {
-  weak var viewController: HomeViewController!
-  
-  // MARK: - Navigation
-  
-  func navigateToSharer()
-  {
-    // Trigger a storyboard segue
-     viewController.performSegue(withIdentifier: "showSharer", sender: viewController)
+    weak var viewController: HomeViewController!
     
-  }
-  
-  // MARK: - Communication
-  
-  func passDataToNextScene(segue: UIStoryboardSegue)
-  {
-    // Teach the router which scenes it can communicate with
+    // MARK: - Navigation
     
-    if segue.identifier == "showSharer" {
-      passDataToSharerScene(segue: segue)
+    
+    /// Navigate to Sharer View Controller through Segue
+    func navigateToSharer()
+    {
+        // Trigger a storyboard segue
+        viewController.performSegue(withIdentifier: "showSharer", sender: viewController)
+        
     }
-  }
-  
-  func passDataToSharerScene(segue: UIStoryboardSegue)
-  {
-    // Teach the router how to pass data to the next scene
     
-    let shareViewController = segue.destination as! ShareViewController
-    shareViewController.output.image = viewController.output.image
-    shareViewController.output.userLocation = viewController.output.userLocation
-  }
+    // MARK: - Communication
+    
+    /// Teach the router which scenes it can communicate with
+    ///
+    /// - Parameter segue: Segue request the data 
+    func passDataToNextScene(segue: UIStoryboardSegue)
+    {
+        if segue.identifier == "showSharer" {
+            passDataToSharerScene(segue: segue)
+        }
+    }
+    
+    /// Teach the router how to pass data to the next scene
+    ///
+    /// - Parameter segue: Segue request the data
+    func passDataToSharerScene(segue: UIStoryboardSegue)
+    {
+        let shareViewController = segue.destination as! ShareViewController
+        shareViewController.output.image = Variable(viewController.output.image)
+        shareViewController.output.userLocation = viewController.output.userLocation
+    }
 }

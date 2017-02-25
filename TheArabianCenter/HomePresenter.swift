@@ -38,6 +38,10 @@ class HomePresenter: HomePresenterInput
     
     // MARK: - Presentation logic
     
+    
+    /// Extract Image from successful response for presentation on UI
+    ///
+    /// - Parameter response: Raw Response From UIImagePickerController
     func presentImageProccessed(response: Home.Offer.Image.Response) {
         guard let image = response.result[UIImagePickerControllerOriginalImage] as? UIImage else{
             self.presentImageError(error: Home.Offer.Image.Error.noImageFound)
@@ -49,41 +53,42 @@ class HomePresenter: HomePresenterInput
         self.output.displayCameraImage(viewModel: viewModel)
     }
     
+    
+    /// Prepare and localized the error for presenting and pass the error back to the View Controller
+    ///
+    /// - Parameter error: Error happen during get Image
     func presentImageError(error: Home.Offer.Image.Error) {
         switch error {
         case .noImageFound:
             self.output.displayMessage(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("No Image", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
         default:
-            break
+            self.output.displayMessage(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Unknown Error", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
         }
     }
     
-    func presentShareSucceed(shareResponse :Share.Response){
-        // Format the response from the Interactor and pass the result back to the View Controller
-        
-    }
-    func presentShareError(error: Share.Error){
-        // Format the response from the Interactor and pass the result back to the View Controller
-        
-        switch error {
-        default:
-            self.output.displayMessage(title: NSLocalizedString("Canceled", comment: ""), message: NSLocalizedString("Can't claim until share the offer on social media", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
-        }
-    }
     
+    /// Prepare and localize the error happen during location retrieving and pass the error back to the View Controller
+    ///
+    /// - Parameter error: error
     func presentLocationError(error: Location.Error){
         switch error {
         case .locationAuthorizaionRequired:
             self.output.displayLocationPermissionHelper(message: NSLocalizedString("We need your permission to get your location", comment: ""))
         case .locationRequired:
             self.output.displayMessage(title: NSLocalizedString("Unable To locate you", comment: ""), message: NSLocalizedString("Please Try to go somewhere else so we can locate you", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
+        default:
+            self.output.displayMessage(title: NSLocalizedString("Error", comment: ""), message:error.localizedDescription, actionTitle: NSLocalizedString("OK", comment: ""))
         }
         
     }
     
+    
+    /// Present Camera Avaliable
     func presentCameraAvaliable(){
         self.output.displayCameraAvaliable()
     }
+    
+    /// Prepare and locaize that message there is no camera avaliable and pass the result back to the View Controller
     func presentCameraNotAvaliable(){
         self.output.displayMessage(title: NSLocalizedString("Camera Not Avaliable", comment: ""), message: NSLocalizedString("You can claim offers without camera", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
     }

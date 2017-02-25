@@ -8,14 +8,17 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
+
+/// Image Models user for upload image to firebase
 struct Image {
     struct Upload {
         struct Request {
             var data: Data
         }
         struct Response {
-            var url: String
+            var url: URL
         }
         
         struct ViewModel {
@@ -25,24 +28,52 @@ struct Image {
         enum Error:Swift.Error {
             case configurationMissing
             case failDuringUpload
+            
+            case failure(error:Swift.Error)
+            
+            var localizedDescription: String{
+                switch self {
+                case .failDuringUpload:
+                    return NSLocalizedString("failDuringUpload", comment: "")
+                    
+                case .configurationMissing:
+                    return NSLocalizedString("configurationMissing", comment: "")
+                case let .failure(error):
+                    return error.localizedDescription
+                }
+            }
         }
     }
     
     struct Download {
-        
         struct Request {
-            var name: String
-            var data: Data
+            var url: URL
         }
-        
         struct Response {
-            var name: String
-            var data: Data
+            var image: UIImage
         }
         
         struct ViewModel {
-            var name: String
-            var data: Data
+            var image: UIImage
+        }
+        
+        enum Error : Swift.Error {
+            case configurationMissing
+            case failDuringDownload
+            
+            case failure(error:Swift.Error)
+            
+            var localizedDescription: String{
+                switch self {
+                case .failDuringDownload:
+                    return NSLocalizedString("failDuringDownload", comment: "")
+                    
+                case .configurationMissing:
+                    return NSLocalizedString("configurationMissing", comment: "")
+                case let .failure(error):
+                    return error.localizedDescription
+                }
+            }
         }
     }
 }

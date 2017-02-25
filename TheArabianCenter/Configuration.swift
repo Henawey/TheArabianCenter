@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+/// Configuration Class will help you to get confgiuration file with the same name of build configuration defined.
 class Configuration {
     
     open let config: NSDictionary?
@@ -22,7 +24,7 @@ class Configuration {
             let config = NSDictionary(contentsOfFile: currentConfigurationPath)
             else{
                 //unable to load configuration
-                fatalError("Configruation missing \n \n please check the following \n 1- \"Configuration\" in info.plist \n 2- plist file named as build configuration selected in schema\n ")
+                fatalError("Configruation missing \n \n please check the following \n 1- \"Configuration\" in info.plist and sure the value is \"$(CONFIGURATION)\".\n 2- plist file named as build configuration selected in schema\n ")
                 
         }
         

@@ -19,19 +19,23 @@ import MBProgressHUD
 protocol ShareViewControllerInput
 {
     func displayShareSuccess(viewModel: Share.ViewModel)
+    func displayRetrieveSucceed(syncResponse:Sync.ViewModel)
+    func displayRetrieveImageSucceed(model:Image.Download.ViewModel)
+    
     func displayMessage(title: String, message:String,actionTitle:String)
-    func displaySyncSucceed(syncResponse:Sync.ViewModel)
 }
 
 protocol ShareViewControllerOutput
 {
-    func shareOnFacebook(request: Share.UI.Request)
-    func shareOnTwitter(from viewController: UIViewController,request: Share.UI.Request)
     
-    func save(request: Sync.Save.Request)
-    func retrieve(request: Sync.Retrieve.Request)
+    func shareOnFacebook(request: UI.Share.Request)
+    func shareOnTwitter(from viewController: UIViewController,request: UI.Share.Request)
     
-    var image: UIImage? {get set}
+    func retrieve(request: UI.Sync.Retrieve.Request)
+    func retrieveImage(request: UI.Image.Download.Request)
+    
+    /// Vairable represents some observable state for the value and it will be user to observe any value change.
+    var image: Variable<UIImage?> {get set}
     var userLocation: CLLocation? {get set}
 }
 
@@ -40,12 +44,11 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     var output: ShareViewControllerOutput!
     var router: ShareRouter!
     
-    let disposeBag = DisposeBag()
     @IBOutlet var imageView:UIImageView?
     
-    var offer:Variable<Sync.ViewModel?> = Variable(nil)
+    let disposeBag = DisposeBag()
     
-    var shareClousre : (_ offer:Sync.ViewModel) -> () = { offer in }
+    var offer:Variable<Sync.ViewModel?> = Variable(nil)
     
     // MARK: - Object lifecycle
     
@@ -60,85 +63,56 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        if self.output.image != nil {
-            
-            self.imageView?.image = self.output.image
-            
-        }
         
-        offer.asObservable().subscribe(onNext: { (viewModel) in
-            guard let imageLocation = viewModel?.imageLocation,
-                let url = URL(string:imageLocation) else{
-                    return
-            }
-            self.imageView?.kf.setImage(with: url,completionHandler: { (image, error, cachType, url) in
-                guard let image = image else{
-                    return
-                }
-                
-                self.output.image = image
-
-            })
-            
+        /// set image setted then it will shown
+        
+        //subscribe for image change to set the image view with new image
+        self.output.image.asObservable().subscribe(onNext: { (image) in
+            self.imageView?.image = image
+        }).addDisposableTo(disposeBag)
+        
+        //subscribe for offer change to download image then display it
+        self.offer.asObservable().subscribe(onNext: { (viewModel) in
+            self.output.retrieveImage(request: UI.Image.Download.Request(imageLocation: viewModel?.imageLocation))
         }).addDisposableTo(disposeBag)
     }
     
     // MARK: - Event handling
     
-    func displaySyncSucceed(syncResponse:Sync.ViewModel){
-        
+    
+    /// Download or upload image done successfully
+    ///
+    /// - Parameter syncResponse: the view model to display
+    func displayRetrieveSucceed(syncResponse:Sync.ViewModel){
         MBProgressHUD.hide(for: self.view, animated: true)
-        
         self.offer.value = syncResponse
-        
-        shareClousre(syncResponse)
-        
     }
     
+    /// Load offer from data source
+    ///
+    /// - Parameter offerId: the required offer id
     func loadOffer(offerId: String){
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.output.retrieve(request: Sync.Retrieve.Request(id: offerId))
+        self.output.retrieve(request: UI.Sync.Retrieve.Request(id: offerId))
     }
     
     @IBAction func facebookShare(){
         
-        shareClousre = { offer in
-            let imageURL = URL(string: offer.imageLocation)
-            
-            self.output.shareOnFacebook(request: Share.UI.Request(id:offer.id,title:offer.title,description:offer.description,imageURL:imageURL))
-        }
-        
-        guard let offer = self.offer.value else {
-            MBProgressHUD.showAdded(to: self.view, animated: true)
-            
-            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image,location:self.output.userLocation))
-            return
-        }
-        
-        shareClousre(offer)
+        self.output.shareOnFacebook(request: UI.Share.Request(title:"Test Title",description:"Test Description",image:self.output.image.value))
     }
     
     @IBAction func twitterShare(){
-        shareClousre = {  offer in
-            self.output.shareOnTwitter(from: self, request: Share.UI.Request(id:offer.id,title:offer.title,description:offer.description,image: self.output.image))
-        }
-        
-        guard let offer = self.offer.value else {
-            MBProgressHUD.showAdded(to: self.view, animated: true)
-            
-            self.output.save(request: Sync.Save.Request(title: "Test Title", description: "Test Description", image: self.output.image,location:self.output.userLocation))
-            return
-        }
-        
-        shareClousre(offer)
-        
-        
+        self.output.shareOnTwitter(from: self, request: UI.Share.Request(title: "Test Title", description: "Test Description", image: self.output.image.value))
     }
     
     // MARK: - Display logic
     func displayShareSuccess(viewModel: Share.ViewModel) {
-        // NOTE: Display the result from the Presenter
+        // Display the result from the Presenter
         print("claimed")
+    }
+    
+    func displayRetrieveImageSucceed(model:Image.Download.ViewModel){
+        self.output.image.value = model.image
     }
     
     func displayMessage(title: String, message:String,actionTitle:String) {

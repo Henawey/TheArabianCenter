@@ -11,15 +11,19 @@
 
 import UIKit
 import CoreLocation
+import RxSwift
+import Result
 
 protocol ShareInteractorInput
 {
-    func shareOnFacebook(request: Share.UI.Request)
-    func shareOnTwitter(from viewController: UIViewController,request: Share.UI.Request)
     
-    func save(request: Sync.Save.Request)
-    func retrieve(request: Sync.Retrieve.Request)
-    var image: UIImage? {get set}
+    func shareOnFacebook(request: UI.Share.Request)
+    func shareOnTwitter(from viewController: UIViewController,request: UI.Share.Request)
+    
+    func retrieve(request: UI.Sync.Retrieve.Request)
+    func retrieveImage(request: UI.Image.Download.Request)
+    
+    var image: Variable<UIImage?> {get set}
     var userLocation: CLLocation? {get set}
 }
 
@@ -28,8 +32,11 @@ protocol ShareInteractorOutput
     func presentShareSucceed(shareResponse:Share.Response)
     func presentShareError(error: Share.Error)
     
-    func presentSyncSucceed(syncResponse:Sync.Response)
-    func presentSyncError(error: Sync.Error)
+    func presentRetrieveSucceed(syncResponse:Sync.Response)
+    func presentRetrieveError(error: Sync.Error)
+    
+    func presentRetrieveImageSucceed(response:Image.Download.Response)
+    func presentRetrieveImageError(error: UI.Image.Download.Error)
 }
 
 class ShareInteractor: ShareInteractorInput
@@ -38,9 +45,12 @@ class ShareInteractor: ShareInteractorInput
     var worker: ShareWorker = ShareWorker()
     
     // MARK: - Business logic
-    var _image: UIImage?
+    var cache: [Sync.Save.Request:Sync.Response] = [:]
     
-    var image: UIImage?{
+    var _image: Variable<UIImage?> = Variable(nil)
+    
+    /// this is image captured by the camera in HomeViewController
+    var image: Variable<UIImage?> {
         set{
             _image = newValue
         }
@@ -50,7 +60,7 @@ class ShareInteractor: ShareInteractorInput
     }
     
     var _userLocation: CLLocation?
-    
+    /// this is user location captured by the CoreLocation in HomeViewController
     var userLocation: CLLocation?{
         set{
             _userLocation = newValue
@@ -60,88 +70,182 @@ class ShareInteractor: ShareInteractorInput
         }
     }
     
-    func save(request: Sync.Save.Request) {
+    
+    /// Save the data on firebase database for further use
+    /// and this will happen as following
+    ///
+    /// 1.Check cache if request already proccesed
+    /// 2.Check if image is found then compress the image to save user bandwidth, otherwise error will be appread
+    /// 3. Upload Image for further user, Also it's required to share a link in Facebook SDK to be a network url.
+    /// 4. Save Request with link of the image.
+    /// - Parameter request: requried data to be saved
+    func save(request: Sync.Save.Request,attach image:UIImage? = nil,compilation:@escaping (Result<Sync.Response,Sync.Error>)->()) {
         
-        guard let image = request.image,
+        //Check cache if request already proccesed
+        if let response = cache[request] {
+            compilation(.success(response))
+            return
+        }
+        
+        //Check if image is found then compress the image to save user bandwidth, otherwise error will be appread
+        guard let image = image,
             let imageData = image.jpeg(.low) else {
-                self.output.presentSyncError(error: Sync.Error.invalidData)
+                compilation(.failure(Sync.Error.invalidData))
                 return
         }
         
-        self.worker.uploadImage (request: Image.Upload.Request(data: imageData)) { (result) in
+        let syncWorker = SyncWorker()
+        
+        // Upload Image for further user, Also it's required to share a link in Facebook SDK to be a network url
+        syncWorker.uploadImage (request: Image.Upload.Request(data: imageData)) { (result) in
             switch result{
             case let .success(response):
                 
                 var request = request
                 
-                request.imageLocation = response.url
+                request.imageLocation = response.url.absoluteString
                 
-                self.worker.save(request: request, compilation: { (result) in
+                //Save Request with link of the image
+                syncWorker.save(request: request, compilation: { (result) in
                     switch(result){
                     case let .success(id):
-                        self.output.presentSyncSucceed(syncResponse: Sync.Response(id: id, title: request.title, description: request.description, imageLocation: response.url))
+                        let response = Sync.Response(id: id, title: request.title, description: request.description, imageLocation: response.url.absoluteString)
+                        
+                        //save request and response in cache
+                        self.cache[request] = response
+                        
+                        compilation(.success(response))
                     case let .failure(error):
-                        self.output.presentSyncError(error: Sync.Error.failure(error: error))
+                        compilation(.failure(Sync.Error.failure(error: error)))
                     }
                     
                 })
             case let .failure(error):
-                self.output.presentSyncError(error: Sync.Error.failure(error: error))
+                compilation(.failure(Sync.Error.failure(error: error)))
+                
             }
         }
     }
     
-    func retrieve(request: Sync.Retrieve.Request){
-        self.worker.retrieve(request: request) { (result) in
+    
+    /// Retrieve data by id from Firebase.
+    /// needed in DeepLinking.
+    /// - Parameter request: Retrieve request usually is offer id.
+    func retrieve(request: UI.Sync.Retrieve.Request){
+        
+        guard let id = request.id else {
+            self.output.presentRetrieveError(error: Sync.Error.invalidData)
+            return
+        }
+        
+        let syncWorker = SyncWorker()
+        
+        syncWorker.retrieve(request: Sync.Retrieve.Request.init(id: id)) { (result) in
             switch result{
             case let .success(response):
-                self.output.presentSyncSucceed(syncResponse:response)
+                
+                self.output.presentRetrieveSucceed(syncResponse:response)
+                
             case let .failure(error):
-                self.output.presentSyncError(error: Sync.Error.failure(error: error))
+                self.output.presentRetrieveError(error: Sync.Error.failure(error: error))
             }
         }
     }
     
-    func shareOnTwitter(from viewController: UIViewController,request: Share.UI.Request){
-        guard let id = request.id,
-            let title = request.title,
+    func retrieveImage(request: UI.Image.Download.Request){
+        
+        guard let imageLocation = request.imageLocation,
+            let imageURL = URL(string:imageLocation) else {
+                self.output.presentRetrieveImageError(error: UI.Image.Download.Error.invalidData)
+            return
+        }
+        
+        let syncWorker = SyncWorker()
+        
+        syncWorker.downloadImage(imageRequest: Image.Download.Request(url: imageURL), compilation: { (result) in
+            switch result{
+            case let .success(response):
+                self.output.presentRetrieveImageSucceed(response:response)
+            case let .failure(error):
+                self.output.presentRetrieveImageError(error: UI.Image.Download.Error.failure(error: error))
+            }
+        })
+    }
+    
+    
+    /// Share the offer on Twitter
+    ///
+    /// - Parameters:
+    ///   - viewController: Parent View Controller
+    ///   - request: the data need to be shared
+    func shareOnTwitter(from viewController: UIViewController,request: UI.Share.Request){
+        guard let title = request.title,
             let description = request.description,
             let image = request.image else {
                 self.output.presentShareError(error: Share.Error.invalidData)
                 return
         }
         
-       self.worker.twitterShare(from: viewController, request: Share.Request(id: id, title: title, description: description, image: image)) { (result) in
+        self.save(request: Sync.Save.Request(title: title, description: description, location: self.userLocation) ,attach: image) { (result) in
+            
             switch result{
-            case let .success(shareResponse):
-                self.output.presentShareSucceed(shareResponse: shareResponse)
-                break
+            case let .success(response):
+                
+                self.worker.twitterShare(from: viewController, request: Share.Request(id: response.id, title: response.title, description: response.description, image: image)) { (result) in
+                    switch result{
+                    case let .success(shareResponse):
+                        self.output.presentShareSucceed(shareResponse: shareResponse)
+                    case let .failure(error):
+                        self.output.presentShareError(error: error)
+                    }
+                }
+                
             case let .failure(error):
-                self.output.presentShareError(error: error)
+                self.output.presentShareError(error: Share.Error.failure(error: error))
                 break
+                
             }
         }
+        
     }
     
-    func shareOnFacebook(request: Share.UI.Request){
-        // Create Home Worker to do the sharing work
+    /// Share the offer on Facebook
+    ///
+    /// - Parameters:
+    ///   - request: the data need to be shared
+    func shareOnFacebook(request: UI.Share.Request){
         
-        guard let id = request.id,
-            let title = request.title,
+        guard let title = request.title,
             let description = request.description,
-            let imageURL = request.imageURL else {
+            let image = request.image else {
                 self.output.presentShareError(error: Share.Error.invalidData)
                 return
         }
         
-        self.worker.facebookShare(request: Share.Request(id: id, title: title, description: description,imageURL:imageURL)) { (result) in
+        self.save(request: Sync.Save.Request(title: title, description: description, location: self.userLocation), attach: image) { (result) in
+            
             switch result{
-            case let .success(shareResponse):
-                self.output.presentShareSucceed(shareResponse: shareResponse)
-                break
+            case let .success(response):
+                
+                guard let imageURL = URL(string:response.imageLocation) else{
+                    self.output.presentShareError(error: Share.Error.cannotUploadData)
+                    return
+                }
+                
+                self.worker.facebookShare(request: Share.Request(id: response.id, title: response.title, description: response.description,imageURL:imageURL)) { (result) in
+                    switch result{
+                    case let .success(shareResponse):
+                        self.output.presentShareSucceed(shareResponse: shareResponse)
+                        break
+                    case let .failure(error):
+                        self.output.presentShareError(error: error)
+                        break
+                    }
+                }
             case let .failure(error):
-                self.output.presentShareError(error: error)
+                self.output.presentShareError(error: Share.Error.failure(error: error))
                 break
+                
             }
         }
     }

@@ -31,6 +31,18 @@ struct Home
                 case noImageFound
                 case configurationMissing
                 case failure(error:Swift.Error)
+                
+                var localizedDescription: String{
+                    switch self {
+                    case .noImageFound:
+                        return NSLocalizedString("noImageFound", comment: "")
+                        
+                    case .configurationMissing:
+                        return NSLocalizedString("configurationMissing", comment: "")
+                    case let .failure(error):
+                        return error.localizedDescription
+                    }
+                }
             }
         }
     }

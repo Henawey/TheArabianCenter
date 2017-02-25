@@ -16,16 +16,22 @@ protocol SharePresenterInput
     func presentShareSucceed(shareResponse:Share.Response)
     func presentShareError(error: Share.Error)
     
-    func presentSyncSucceed(syncResponse:Sync.Response)
-    func presentSyncError(error: Sync.Error)
+    func presentRetrieveSucceed(syncResponse:Sync.Response)
+    func presentRetrieveError(error: Sync.Error)
+    
+    func presentRetrieveImageSucceed(response:Image.Download.Response)
+    func presentRetrieveImageError(error: UI.Image.Download.Error)
 }
 
 protocol SharePresenterOutput: class
 {
     func displayShareSuccess(viewModel: Share.ViewModel)
-    func displayMessage(title: String, message:String,actionTitle:String)
     
-    func displaySyncSucceed(syncResponse:Sync.ViewModel)
+    func displayRetrieveSucceed(syncResponse:Sync.ViewModel)
+    
+    func displayRetrieveImageSucceed(model:Image.Download.ViewModel)
+    
+    func displayMessage(title: String, message:String,actionTitle:String)
 }
 
 class SharePresenter: SharePresenterInput
@@ -34,22 +40,39 @@ class SharePresenter: SharePresenterInput
   
   // MARK: - Presentation logic
   
-    func presentSyncSucceed(syncResponse:Sync.Response){
-        self.output.displaySyncSucceed(syncResponse: Sync.ViewModel(id: syncResponse.id, title: syncResponse.title, description: syncResponse.description, imageLocation: syncResponse.imageLocation))
+    // Pass the retrieving result back to the View Controller
+    func presentRetrieveSucceed(syncResponse:Sync.Response){
+        self.output.displayRetrieveSucceed(syncResponse: Sync.ViewModel(id: syncResponse.id, title: syncResponse.title, description: syncResponse.description, imageLocation:syncResponse.imageLocation))
     }
     
-    func presentSyncError(error: Sync.Error){
+    /// Prepare and locaize that message that's the sync failed for some reason and pass the error back to the View Controller
+    func presentRetrieveError(error: Sync.Error){
         switch error {
         default:
             self.output.displayMessage(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Error syncing Offer", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
         }
     }
+    
+    // Pass the image retrieving result back to the View Controller
+    func presentRetrieveImageSucceed(response:Image.Download.Response){
+        self.output.displayRetrieveImageSucceed(model:Image.Download.ViewModel(image: response.image))
+    }
+    
+    /// Prepare and locaize that message that's the image retrieving failed for some reason and pass the error back to the View Controller
+    func presentRetrieveImageError(error: UI.Image.Download.Error){
+        switch error {
+        default:
+            self.output.displayMessage(title: NSLocalizedString("Error", comment: ""), message: NSLocalizedString("Error during downloading image", comment: ""), actionTitle: NSLocalizedString("OK", comment: ""))
+        }
+    }
+    
+    // Pass the result back to the View Controller
     func presentShareSucceed(shareResponse :Share.Response){
-        // Format the response from the Interactor and pass the result back to the View Controller
         self.output.displayShareSuccess(viewModel: Share.ViewModel(id: shareResponse.id, title: shareResponse.title, description: shareResponse.description, image: shareResponse.image,imageURL:shareResponse.imageURL))
     }
+    
+    /// Prepare and locaize that message that's the share failed for some reason and pass the error back to the View Controller
     func presentShareError(error: Share.Error){
-        // Format the response from the Interactor and pass the result back to the View Controller
         
         switch error {
         default:

@@ -43,6 +43,8 @@ class HomeInteractor: HomeInteractorInput
     var output: HomeInteractorOutput!
     var worker: HomeWorker!
     
+    
+    /// Used for passing data from Home to Share View Controller
     var _image: UIImage!
     
     var image: UIImage{
@@ -54,6 +56,7 @@ class HomeInteractor: HomeInteractorInput
         }
     }
     
+    /// User for saving user location until needed
     var _userLocation: CLLocation?
     
     var userLocation: CLLocation?{
@@ -68,6 +71,8 @@ class HomeInteractor: HomeInteractorInput
     fileprivate let disposeBag = DisposeBag()
     
     // MARK: - Business logic
+    
+    /// Check if camera avaliable for this device (Usally work for real devices and doesn't work for Simulator)
     func validateCameraAvaliabilty(){
         if UIImagePickerController.isSourceTypeAvailable(.camera){
             self.output.presentCameraAvaliable()
@@ -75,12 +80,16 @@ class HomeInteractor: HomeInteractorInput
             self.output.presentCameraNotAvaliable()
         }
     }
+    
+    
+    /// Notify the interaction for need to subscribe for any location change to be ready if location required
     func startLocationManager() {
         
         let locationManager = CLLocationManager()
         
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
+        /// Subscribe for delegate obserable method for any chnage for authorization.
         locationManager.rx.didChangeAuthorizationStatus.subscribe(onNext: { (status) in
             switch status{
             case .authorizedWhenInUse:
@@ -90,6 +99,8 @@ class HomeInteractor: HomeInteractorInput
             }
         }).addDisposableTo(disposeBag)
         
+        
+        /// Subscribe for any location change to update user location to be ready with latest user location
         locationManager.rx.didUpdateLocations.subscribe(onNext: { (locations) in
             guard let location: CLLocation = locations.first else{
                 return
@@ -98,6 +109,10 @@ class HomeInteractor: HomeInteractorInput
         }).addDisposableTo(disposeBag)
     }
     
+    
+    /// Handle UIImagePickerController response for camera result
+    ///
+    /// - Parameter request: Wrapper for Event that have camera response
     func handleCameraResult(request: Home.Offer.Image.Request) {
         let event = request.event
         
@@ -111,9 +126,22 @@ class HomeInteractor: HomeInteractorInput
         }
     }
     
+    
+    /// Request to change the Locaization for the application basically
+    /// 1. override "AppleLanguages"
+    /// 2. Update "semanticContentAttribute" for UIView
+    /// 3. Notify any observer that listen for "localizationChanged"
+    ///
+    /// - Parameter request: Request for required language and the "semanticContentAttribute"
     func changeLanguage(request: Language.Request) {
         
-        let selectedLanguage = request.language
+        var selectedLanguage:Language!
+        
+        if request.language == nil{
+            selectedLanguage = .English
+        }else{
+            selectedLanguage =  request.language
+        }
         
         Bundle.setLanguage(selectedLanguage.rawValue)
         

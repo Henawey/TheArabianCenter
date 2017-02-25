@@ -57,15 +57,19 @@ class HomeViewController: UIViewController, HomeViewControllerInput
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        //Start location Manager also if no location permission or not determined then request this permission will happen
         self.output.startLocationManager()
     }
     
     // MARK: - Event handling
     
+    /// Check first if the camera is avaliable if success open camera to take a photo for Offer
     @IBAction func openCamera(){
         self.output.validateCameraAvaliabilty()
     }
     
+    
+    /// Determine what is the current language selected then select the other
     @IBAction func changeLanguage(){
         
         let currentLanguage = UserDefaults.standard.stringArray(forKey: "AppleLanguages")?.first
@@ -81,6 +85,10 @@ class HomeViewController: UIViewController, HomeViewControllerInput
     }
     
     // MARK: - Display logic
+    
+    
+    /// there is camera so we go for taking a image for offer
+    
     func displayCameraAvaliable(){
         let picker = UIImagePickerController()
         
@@ -106,6 +114,12 @@ class HomeViewController: UIViewController, HomeViewControllerInput
     }
     
     
+    /// Display any message
+    ///
+    /// - Parameters:
+    ///   - title: Title of Alert
+    ///   - message: Message of Alert
+    ///   - actionTitle: Close Action Title
     func displayMessage(title: String, message:String,actionTitle:String) {
         // NOTE: Display the result from the Presenter
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -113,6 +127,10 @@ class HomeViewController: UIViewController, HomeViewControllerInput
         self.present(alertController, animated: true, completion: nil)
     }
     
+    
+    /// Display Permission Helper to aquire or notify the user about permission conflict and how to solve it
+    ///
+    /// - Parameter message: the message that will be shown on Helper
     func displayLocationPermissionHelper(message: String) {
         let pscope = PermissionScope()
         pscope.addPermission(LocationWhileInUsePermission(),
@@ -120,6 +138,10 @@ class HomeViewController: UIViewController, HomeViewControllerInput
         pscope.show()
     }
     
+    
+    /// The Image Proccesed and we have to go to Share View Controller to finish the process of claiming
+    ///
+    /// - Parameter viewModel: the view model which have the image
     func displayCameraImage(viewModel: Home.Offer.Image.ViewModel) {
             self.output.image = viewModel.image
             self.router.navigateToSharer()
