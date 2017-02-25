@@ -39,6 +39,7 @@ target 'TheArabianCenter' do
     target 'TheArabianCenterTests' do
         inherit! :search_paths
         # Pods for testing
+        firebase_pods
     end
     
     target 'TheArabianCenterUITests' do
