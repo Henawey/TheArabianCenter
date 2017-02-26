@@ -83,7 +83,11 @@ class ShareWorker
         
         shareDialog.completion = { result in
             switch result {
-            case .success(_):
+            case let .success(result):
+                guard (result.postId != nil) else {
+                    compilation(.failure(Share.Error.shareCancelled))
+                    return
+                }
                 let response = Share.Response(id:request.id,title: request.title, description: request.description,imageURL:imageURL)
                 compilation(.success(response))
             case .cancelled:

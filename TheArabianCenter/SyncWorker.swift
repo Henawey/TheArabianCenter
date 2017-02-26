@@ -21,8 +21,8 @@ import Kingfisher
 
 class SyncWorker
 {
-  // MARK: - Business Logic
-  
+    // MARK: - Business Logic
+    
     func uploadImage(request:Image.Upload.Request ,progress:@escaping (_ percent:Double)->() = {_ in },compilation:@escaping (Result<Image.Upload.Response,Image.Upload.Error>)->()) {
         FIRAuth.auth()?.signInAnonymously(completion: { (user, error) in
             if error != nil{
@@ -132,7 +132,7 @@ class SyncWorker
             child.observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 guard var value = snapshot.value as? [String : Any] else{
-                    compilation(.failure(Sync.Error.invalidResponse                        ))
+                    compilation(.failure(Sync.Error.invalidResponse))
                     return
                 }
                 
@@ -165,5 +165,5 @@ class SyncWorker
             compilation(.success(respose))
         })
     }
-
+    
 }

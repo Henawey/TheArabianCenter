@@ -58,8 +58,7 @@ struct Sync {
             
             var hashValue: Int{
                 get{
-                    return "\(title),\(description),\(imageLocation),\(lat),\(long)".hashValue
-                    
+                    return "\(title),\(description),\(lat),\(long)".hashValue   
                 }
             }
             

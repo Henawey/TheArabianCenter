@@ -72,21 +72,14 @@ class ShareViewController: UIViewController, ShareViewControllerInput
         }).addDisposableTo(disposeBag)
         
         //subscribe for offer change to download image then display it
-        self.offer.asObservable().subscribe(onNext: { (viewModel) in
+        self.offer.asObservable().skipWhile({ (viewModel) -> Bool in
+            return (viewModel == nil)
+        }).subscribe(onNext: { (viewModel) in
             self.output.retrieveImage(request: UI.Image.Download.Request(imageLocation: viewModel?.imageLocation))
         }).addDisposableTo(disposeBag)
     }
     
     // MARK: - Event handling
-    
-    
-    /// Download or upload image done successfully
-    ///
-    /// - Parameter syncResponse: the view model to display
-    func displayRetrieveSucceed(syncResponse:Sync.ViewModel){
-        MBProgressHUD.hide(for: self.view, animated: true)
-        self.offer.value = syncResponse
-    }
     
     /// Load offer from data source
     ///
@@ -97,26 +90,37 @@ class ShareViewController: UIViewController, ShareViewControllerInput
     }
     
     @IBAction func facebookShare(){
-        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         self.output.shareOnFacebook(request: UI.Share.Request(title:"Test Title",description:"Test Description",image:self.output.image.value))
     }
     
     @IBAction func twitterShare(){
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         self.output.shareOnTwitter(from: self, request: UI.Share.Request(title: "Test Title", description: "Test Description", image: self.output.image.value))
     }
     
     // MARK: - Display logic
+    
+    /// Download or upload image done successfully
+    ///
+    /// - Parameter syncResponse: the view model to display
+    func displayRetrieveSucceed(syncResponse:Sync.ViewModel){
+        MBProgressHUD.hide(for: self.view, animated: true)
+        self.offer.value = syncResponse
+    }
+    /// Display the result from the Presenter for sharing on social media
     func displayShareSuccess(viewModel: Share.ViewModel) {
-        // Display the result from the Presenter
+        
+        MBProgressHUD.hide(for: self.view, animated: true)
         print("claimed")
     }
     
     func displayRetrieveImageSucceed(model:Image.Download.ViewModel){
+        MBProgressHUD.hide(for: self.view, animated: true)
         self.output.image.value = model.image
     }
     
     func displayMessage(title: String, message:String,actionTitle:String) {
-        
         MBProgressHUD.hide(for: self.view, animated: true)
         // NOTE: Display the result from the Presenter
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

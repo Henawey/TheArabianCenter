@@ -112,7 +112,7 @@ class ShareInteractor: ShareInteractorInput
                         let response = Sync.Response(id: id, title: request.title, description: request.description, imageLocation: response.url.absoluteString)
                         
                         //save request and response in cache
-                        self.cache[request] = response
+                        self.cache = [request:response]
                         
                         compilation(.success(response))
                     case let .failure(error):

@@ -13,6 +13,7 @@ import Fabric
 import TwitterKit
 import Firebase
 import URLNavigator
+import FacebookCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -82,7 +83,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.localizationChanged), name: NSNotification.Name(rawValue: "localizationChanged"), object: nil)
         
-        return true
+        
+        return SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -109,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        return Navigator.open(url)
+        return Navigator.open(url) || SDKApplicationDelegate.shared.application(app, open: url, options: options)
         
     }
     
