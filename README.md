@@ -55,7 +55,7 @@ func downloadImage(imageRequest:Image.Download.Request,compilation:@escaping (Re
         })
 ```
 
-We have a enum with 2 cases on for success and the type of the result, and one for failure and the error type
+We have a enum with 2 cases, one for success with associated type, and one for failure with associated error type
 
 And can be used as following
 ```swift
@@ -108,10 +108,10 @@ It is a lightweight, pure-Swift library for downloading and caching images from 
 To make every thing in the app localized perfectly you should restarting the app.(UIImagePickerController, Permissions Popup)
 
 2. **Deep Linking** [[Ref][Ref]] I’m working with URI scheme for Deeplinking not Associated Domains(iOS 9+)
- because I don’t have iOS Apple Developer membership
+ because I don’t have a personal iOS Apple Developer membership for now.
 
 3. In order to use a URI scheme, I have to manually handle the case of the app not being installed. The typical process was to attempt to open up the app in Javascript by setting window.location to the URI path that you wanted. (Twitter Only)
 
-4. Unit Tests and 1 UI test cases added as samples
+4. 2 Unit Tests and 1 UI test cases added as samples
 
 [Ref]: https://developer.apple.com/support/app-capabilities/ "Ref"
