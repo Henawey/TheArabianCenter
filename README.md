@@ -1,7 +1,8 @@
 # The Arabian Center
-## Dependency manager is [CocoaPods](https://cocoapods.org/)
+## Dependency manager
+[CocoaPods](https://cocoapods.org/)
 ## Architecture
- following [Clean Swift](http://clean-swift.com/) based on Uncle bob [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)
+ Following [Clean Swift](http://clean-swift.com/) based on Uncle bob [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)
 
  The Main Life Cycle based on 3 letters
  **VIP**
@@ -22,7 +23,7 @@ We’ll create special objects to pass data through the boundaries between the c
  5. The presenter takes the response object and formats the results. It then puts the formatted result in a view model object and sends it back to the view controller.
  6. Finally, the view controller displays the results to the user.
 
-
+---
  **Responsibility for each component**
  1. **View Controller**
  Handle user interface that the user can interact with, also collects the user inputs.
