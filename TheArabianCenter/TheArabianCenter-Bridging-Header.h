@@ -3,4 +3,3 @@
 //
 
 #include "NSBundle+Language.h"
-#import <CommonCrypto/CommonDigest.h>
